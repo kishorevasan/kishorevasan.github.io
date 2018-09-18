@@ -240,7 +240,7 @@ nav ul li a {
 /*-----------------------------------------------------------------------------------*/
 
 #header {
-  background: url("../images/home-bg.jpg") repeat scroll center center / cover;
+  background: url("../images/home-bg2.jpg") repeat scroll center center / cover;
   height: 100vh;
   width: 100%;
 }
@@ -445,6 +445,48 @@ nav ul li a {
 
 .portfolio-thumbnail img {
   max-width: 100%;
+}
+
+
+/*-----------------------------------------------------------------------------------*/
+/*  Ugrad
+/*-----------------------------------------------------------------------------------*/
+
+#ugrad {
+  position: relative;
+  padding-bottom: 50px;
+}
+
+
+#ugrad .ugrad-container {
+  display: inline-block;
+  margin-bottom: 50px;
+  width: 100%;
+}
+
+#ugrad .ugrad-descr {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+}
+
+#ugrad .ugrad-descr p {
+   margin: 0px;
+}
+
+.ugrad-img {
+  position: relative;
+  margin-bottom: 30px;
+  overflow: hidden;
+  float: left;
+  width: 50%;
+}
+
+.ugrad-img img {
+  display:block;
+  margin-left:10%;
+  margin-right:10%; 
+  max-width: 80%;
 }
 
 /*-----------------------------------------------------------------------------------*/
