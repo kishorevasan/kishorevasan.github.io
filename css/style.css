@@ -440,7 +440,7 @@ nav ul li a {
 
 .portfolio-thumbnail {
   margin-bottom: 30px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .portfolio-thumbnail img {
