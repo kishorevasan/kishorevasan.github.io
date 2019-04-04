@@ -38,7 +38,7 @@
 
 .journal-txt h4 a {
   display: block;
-  font-size: 19px;
+  font-size: 17px;
   line-height: 24px;
   margin: 0 0 13px 0;
   font-weight: 500;
@@ -144,6 +144,6 @@ blockquote {
   margin: 30px 0;
   border: none;
   border-left: 4px solid #b8a07e;
-  font-size: 23px;
+  font-size: 20px;
   line-height: 30px;
 }
