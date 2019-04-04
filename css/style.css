@@ -13,7 +13,7 @@ body {
   background: #ffffff;
   color: #898989;
   font-family: 'Poppins', helvetica;
-  font-size: 15px;
+  font-size: 19px;
   font-weight: 300;
   line-height: 20px;
   letter-spacing: 0.02em;
@@ -38,7 +38,7 @@ h2 {
 
 h4 {
   color: #292929;
-  font-size: 14px;
+  font-size: 24px;
   font-weight: 600;
 }
 
@@ -85,7 +85,7 @@ nav ul li a {
 p {
   margin: 25px 0;
   padding: 0;
-  font-size: 15px;
+  font-size: 17px;
   color: #999999;
   line-height: 28px;
 }
@@ -135,7 +135,7 @@ p {
   border: 1px solid #999;
   border-radius: 0;
   color: #999999;
-  font-size: 12px;
+  font-size: 19px;
   font-weight: 500;
   height: 50px;
   letter-spacing: 0.1em;
@@ -199,7 +199,7 @@ nav ul li {
   float: left;
   margin-right: 15px;
   font-family: 'Poppins', sans-serif;
-  font-size: 14px;
+  font-size: 19px;
   margin-left: 40px;
 }
 
@@ -207,7 +207,7 @@ nav ul li a {
   padding: 2px 0 0 0;
   position: relative;
   display: block;
-  font-size: 14px;
+  font-size: 19px;
   color: #999999;
   font-family: 'Poppins', helvetica;
   font-weight: 500;
@@ -264,7 +264,7 @@ nav ul li a {
 }
 
 .header-content p {
-  font-size: 13px;
+  font-size: 23px;
   letter-spacing: 5px;
   margin-top: 0;
   margin-bottom: 30px;
@@ -280,7 +280,7 @@ nav ul li a {
 
 .header-content .list-social li i {
   color: #fff;
-  font-size: 15px;
+  font-size: 22px;
 }
 
 /*-----------------------------------------------------------------------------------*/
@@ -336,7 +336,7 @@ nav ul li a {
 .services-block span {
   margin: 10px 0;
   position: relative;
-  font-size: 13px;
+  font-size: 19px;
   color: #292929;
   letter-spacing: 0.1em;
   font-weight: 500;
@@ -346,7 +346,7 @@ nav ul li a {
 
 .services-block .separator {
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 22px;
 }
 
@@ -408,7 +408,7 @@ nav ul li a {
 #portfolio .portfolio-list .nav li {
   margin: 0 40px 0 0;
   float: left;
-  font-size: 14px;
+  font-size: 17px;
   color: #999999;
   line-height: 16px;
   cursor: pointer;
@@ -485,7 +485,7 @@ nav ul li a {
 .ugrad-img img {
   display:block;
   margin-left:10%;
-  margin-right:10%; 
+  margin-right:10%;
   max-width: 80%;
 }
 
@@ -527,7 +527,7 @@ nav ul li a {
 
 .journal-block .journal-info .journal-txt h4 a {
   display: block;
-  font-size: 19px;
+  font-size: 23px;
   line-height: 24px;
   margin: 0 0 13px 0;
   font-weight: 500;
@@ -550,7 +550,7 @@ nav ul li a {
 
 .journal-block .journal-info .journal-txt p {
   margin: 0;
-  font-size: 14px;
+  font-size: 19px;
   line-height: 24px;
 }
 
@@ -607,7 +607,7 @@ nav ul li a {
   display: none;
   margin: 0 0 20px;
   font-weight: 400;
-  font-size: 13px;
+  font-size: 19px;
 }
 
 /*-----------------------------------------------------------------------------------*/

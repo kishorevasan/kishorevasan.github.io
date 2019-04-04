@@ -60,10 +60,12 @@
 }
 
 .post-meta ul li {
-  font-size: 12px;
+  font-size: 17px;
+  margin-top: 25px;
   font-weight: normal;
   margin-left: 8px;
   margin-right: 8px;
+  margin-bottom: 20px;
   text-transform: capitalize;
   display: inline-block;
   float: none;
@@ -142,4 +144,6 @@ blockquote {
   margin: 30px 0;
   border: none;
   border-left: 4px solid #b8a07e;
+  font-size: 23px;
+  line-height: 30px;
 }
