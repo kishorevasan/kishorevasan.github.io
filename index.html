@@ -1,409 +1,261 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+<title>Kishore Vasan - Network Scientist</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href = "style.css">
 
-<head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128379326-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-128379326-1');
-  </script>
-
-  <!-- meta -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Kishore Vasan | UW Seattle</title>
-  <meta content="" name="keywords">
-  <meta content="" name="description">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
-
-  <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Libraries CSS Files -->
-  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
-  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="lib/magnific-popup/magnific-popup.css" rel="stylesheet">
-  <link href="lib/hover/hover.min.css" rel="stylesheet">
-
-  <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
-
-  <!-- Responsive css -->
-  <link href="css/responsive.css" rel="stylesheet">
-
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="images/favicon2.png">
-
-  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
-  <!-- =======================================================
-    Theme Name: Folio
-    Theme URL: https://bootstrapmade.com/folio-bootstrap-portfolio-template/
-    Author: BootstrapMade.com
-    Author URL: https://bootstrapmade.com
-  ======================================================= -->
-</head>
 
 <body>
 
-  <!-- start section navbar -->
-  <nav id="main-nav">
-    <div class="row">
-      <div class="container">
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="#home" class="w3-bar-item w3-button">HOME</a>
+    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user"></i> ABOUT</a>
+    <a href="#publications" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-pencil"></i> PUBLICATIONS</a>
+    <a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> PROJECTS</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+      <i class="fa fa-search"></i>
+    </a>
+  </div>
 
-        <div class="logo">
-          <a href="index.html"><img src="images/logo4.png" alt="logo"></a>
-        </div>
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
+    <a href="#publications" class="w3-bar-item w3-button" onclick="toggleFunction()">PUBLICATIONS</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PROJECTS</a>
+    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+  </div>
+</div>
 
-        <div class="responsive"><i data-icon="m" class="ion-navicon-round"></i></div>
+<!-- First Parallax Image with Logo Text -->
+<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+  <div class="w3-display-middle" style="white-space:nowrap;">
+    <span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity"> <span class="w3-hide-small">KISHORE</span> VASAN</span>
+  </div>
+</div>
 
-        <ul class="nav-menu list-unstyled">
-          <li><a href="#header" class="smoothScroll">Home</a></li>
-          <li><a href="#about" class="smoothScroll">About</a></li>
-          <li><a href="#ugrad" class="smoothScroll">Publications</a></li>
-          <li><a href="#portfolio" class="smoothScroll">Portfolio</a></li>
-          <li><a href="#journal" class="smoothScroll">Blog</a></li>
-          <li><a href="#contact" class="smoothScroll">Contact</a></li>
-        </ul>
-
-      </div>
+<!-- Container (About Section) -->
+<div class="w3-content w3-container w3-padding-32" id="about">
+  <h3 class="w3-center">ABOUT ME</h3>
+  <p class="w3-center"><em>Think Networks</em></p>
+  <p>I am a PhD student in Network Science at the Network Science Institute at Northeastern University. I work at the Center for Complex Networks Research, advised by Albert Lazslo Barabasi. </p>
+  <div class="w3-row">
+    <div class="w3-col m6 w3-center w3-padding-large">
+      <p><b><i class="fa fa-user w3-margin-right"></i>Kishore Vasan</b></p><br>
+      <img src="images/profile.jpg" class="w3-round w3-image" alt="Photo of Me" width="300" height="333">
     </div>
-  </nav>
-  <!-- End section navbar -->
 
-
-  <!-- start section header -->
-  <div id="header" class="home">
-
-    <div class="container">
-      <div class="header-content">
-        <h1>I'm <span class="typed"> Kishore </span></h1>
-        <p>Data Scientist</p>
-
-        <ul class="list-unstyled list-social">
-          <li><a href="https://www.github.com/kishorevasan" target="blank"><i class="ion-social-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/kishorevasan" target="blank"><i class="ion-social-linkedin"></i></a></li>
-          <li><a href="https://scholar.google.com/citations?user=yMgHp8wAAAAJ&hl=en&oi=ao" target="blank"><i class="ai ai-google-scholar ai-3x"></i></i></a></li>
-          <li><a href="http://kishorevasan.me/cv/resume-kishore.pdf" target="blank"><i class="ai ai-cv ai-x"></i></a></li>
-        </ul>
-      </div>
+    <!-- Hide this text on small devices -->
+    <div class="w3-col m6 w3-hide-small w3-padding-large">
+      <p><b> Research Motivation.</b> Describe research work + motivation. </p>
     </div>
   </div>
-  <!-- End section header -->
+
+</div>
 
 
-  <!-- start section about us -->
-  <div id="about" class="paddsection">
-    <div class="container">
-      <div class="row justify-content-between">
+<div class="w3-row w3-center w3-dark-grey w3-padding-16">
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">14+</span><br>
+    Partners
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">55+</span><br>
+    Projects Done
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">89+</span><br>
+    Happy Clients
+  </div>
+  <div class="w3-quarter w3-section">
+    <span class="w3-xlarge">150+</span><br>
+    Meetings
+  </div>
+</div>
 
-        <div class="col-lg-4 ">
-          <div class="div-img-bg">
-            <div class="about-img">
-              <img src="images/me2.jpg" class="img-responsive" alt="me">
-            </div>
-          </div>
-        </div>
 
-        <div class="col-lg-7">
-          <div class="about-descr">
+<!-- Container (Portfolio Section) -->
+<div class="w3-content w3-container w3-padding-32" id="publications">
+  <h3 class="w3-center">PUBLICATIONS</h3>
+</div>
 
-            <p class="p-heading">im a data enthusiast who loves telling stories using data.</p>
-            <p class="separator">I am a student at University of Washington pursuing Informatics. My core strengths and interests include network science, data visualization, regression analysis and natural language processing. I am an undergraduate researcher at <strong><a href="http://datalab.ischool.uw.edu" target="blank" style="color: inherit;">DataLab</a></strong>. My research work focuses on <strong style="font-weight: 900;"> Scientometrics: Science of Science. </strong> I analyze large scale bibliometric data on scholarly literature and examine the progress of science across different entities. I am fortunate to be advised by Dr. Jevin West, Assistant Professor, Information School. </p>
-          </div>
+<h4 id ="pubsection"> Journal Publications </h3>
 
-        </div>
-      </div>
+<ul>
+  <li>Item A</li>
+    <ul>
+        <li> Author Names</li>
+        <li> Venue </li>
+        <li> Link to Paper</li>
+    </ul>
+</ul>
+
+<h4 id ="pubsection"> Conference Proceedings </h3>
+
+<ul>
+  <li>Item A</li>
+    <ul>
+        <li> Author Names</li>
+        <li> Venue </li>
+        <li> Link to Paper</li>
+    </ul>
+</ul>
+
+
+<h4 id ="pubsection"> PrePrint Papers </h3>
+
+<ul>
+  <li>Item A</li>
+    <ul>
+        <li> Author Names</li>
+        <li> Venue </li>
+        <li> Link to Paper</li>
+    </ul>
+</ul>
+
+
+<!-- Container (Portfolio Section) -->
+<div class="w3-content w3-container w3-padding-32" id="portfolio">
+  <h3 class="w3-center">PROJECTS</h3>
+  <p class="w3-center"><em>Here are some of my latest published + unpublished work.</em></p><br>
+
+  <!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
+  <div class="w3-row-padding w3-center">
+    <div class="w3-col m3">
+      <img src="images/projects/covid_network.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="COVID Collaboration Network">
+      <p> <i> COVID Network of Science </i></p>
+    </div>
+
+    <div class="w3-col m3">
+      <img src="images/projects/covid_trials.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Coffee beans">
+      <p><i> COVID Clinical Trials Tracker</i></p>
+    </div>
+
+    <div class="w3-col m3">
+      <img src="images/projects/wiki_talk.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Wiki Talk Network">
+      <p><i> Wiki Talk Network Analysis</i></p>
+    </div>
+
+    <div class="w3-col m3">
+      <img src="images/projects/the-food-rise.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Comparing different food security variables">
+      <p><i> Food Security in America</i></p>
     </div>
   </div>
-  <!-- end section about us -->
 
+  <div class="w3-row-padding w3-center w3-section">
+    <div class="w3-col m3">
+      <img src="images/projects/3dviz.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Child Mortality and Vaccination">
+      <p><i> Child Mortality and Vaccinations</i></p>
+    </div>
 
-  <!-- start section services -->
-  <div id="services">
-    <div class="container">
-        <div class="services-carousel owl-theme">
+    <div class="w3-col m3">
+      <img src="images/projects/did.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="My beloved typewriter">
+    </div>
 
-          <div class="services-block">
-            <i class="ion-social-python"></i>
-            <span>PYTHON</span>
-            <p class="separator">Using the power of a modern language.</p>
-          </div>
+    <div class="w3-col m3">
+      <img src="images/projects/coauthorship.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Empty ghost train">
+    </div>
 
-          <div class="services-block">
-            <i class="ion-pie-graph"></i>
-            <span>VISUALIZATION</span>
-            <p class="separator">Convert messy confusing data into informative visualization.</p>
-          </div>
-
-          <div class="services-block">
-            <i class="ion-ios-color-wand-outline"></i>
-            <span>Implementation</span>
-            <p class="separator">Getting things rolling with implementing the entire pipeline. </p>
-          </div>
-
-          <div class="services-block">
-            <i class="ion-ios-lightbulb-outline"></i>
-            <span>CURIOSITY</span>
-            <p class="separator">Curiosity arises from continuosly thinking about the 'key' takeaway from your project. </p>
-          </div>
-
-          <div class="services-block">
-            <i class="ion-ios-analytics-outline"></i>
-            <span>Analytics</span>
-            <p class="separator">Analyzing data to gain insights. </p>
-          </div>
-
-          <div class="services-block">
-            <i class="ion-stats-bars"></i>
-            <span>STATISTICS</span>
-            <p class="separator">Leveraging quantitative science to improve power of results.</p>
-          </div>
-
-          <div class="services-block">
-            <i class="ion-university"></i>
-            <span>RESEARCH</span>
-            <p class="separator">Creating novel methods to solve key problems in research at a university lab.</p>
-          </div>
-        </div>
+    <div class="w3-col m3">
+      <img src="images/projects/spotify-car-player.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity">
     </div>
   </div>
-  <!-- end section services -->
+</div>
 
-  <!-- start section ugrad -->
-  <div id="ugrad" class="paddsection">
-    <div class="container">
-      <div class="section-title text-center">
-        <h2>Publications</h2>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="ugrad-container">
-        <div class="ugrad-img">
-          <img src="images/ai_bursts_final.png" class="img-responsive" alt="img">
-        </div>
-        <div class="ugrad-descr">
-          <h2><a href="https://arxiv.org/abs/1812.03249" target-"_blank"> Measuring scientific buzz</a></h2>
-          <h3> <b>Kishore Vasan</b> and Jevin West</h3>
-          <h6> Towards the proceedings of iConference 2019</h6>
-         </div>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="ugrad-container">
-        <div class="ugrad-img">
-          <img src="images/dept_collab_citat.png" class="img-responsive" alt="img">
-        </div>
-        <div class="ugrad-descr">
-          <h2><a href = "https://arxiv.org/abs/1809.04093" target="_blank"> Is together better? Examining scientific collaboration across multiple authors, departments and institutions</a></h2>
-          <h3> Lovenoor Aulck, <b>Kishore Vasan</b>, and Jevin West</h3>
-          <h6> Towards the proceedings of KDD: BigScholar workshop 2018</h6>
-         </div>
-      </div>
-    </div>
-
+<!-- Modal for full size images on click-->
+<div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
+  <span class="w3-button w3-large w3-black w3-display-topright" title="Close Modal Image"><i class="fa fa-remove"></i></span>
+  <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+    <img id="img01" class="w3-image">
+    <p id="caption" class="w3-opacity w3-large"></p>
   </div>
-  <!-- End section ugrad -->
+</div>
 
-  <!-- start section portfolio -->
-  <div id="portfolio" class="text-center paddsection">
-    <div class="container">
-      <div class="section-title text-center">
-        <h2>My Portfolio</h2>
-      </div>
+
+<!-- Container (Contact Section) -->
+<div class="w3-content w3-container w3-padding-32" id="contact">
+  <h3 class="w3-center">WHERE I WORK</h3>
+  <p class="w3-center"><em>I'd love to discuss projects with you!</em></p>
+
+  <div class="w3-row w3-padding-32 w3-section">
+    <div class="w3-col m4 w3-container">
+      <img src="images/neu_campus.jpeg" class="w3-image w3-round" style="width:100%; height:220px">
     </div>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="portfolio-list">
-            <ul class="nav list-unstyled" id="portfolio-flters">
-              <li class="filter filter-active" data-filter=".all">top</li>
-              <li class="filter" data-filter=".branding">data viz</li>
-              <li class="filter" data-filter=".mockups">statistics</li>
-              <li class="filter" data-filter=".uikits">databases</li>
-              <li class="filter" data-filter=".webdesign">hacks</li>
-            </ul>
+    <div class="w3-col m8 w3-panel">
+      <div class="w3-large w3-margin-bottom">
+        <i class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> 11th Floor, 177 Huntington Ave, Boston<br>
+        <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: vasan.k-at-northeastern.edu<br>
+      </div>
+      <p>Swing by for a cup of <i class="fa fa-coffee"></i>, or leave me a note:</p>
+      <form action="/action_page.php" target="_blank">
+        <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
+          <div class="w3-half">
+            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
           </div>
-
-          <div class="portfolio-container">
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail all branding mockups">
-              <a href="http://simran18.shinyapps.io/the-food-rise" target="blank">
-                <img src="images/portfolio/the-food-rise.jpg" alt="link">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail all branding">
-              <a href="https://kishorevasan.shinyapps.io/child_mortality_and_vaccinations/" target="blank">
-                <img src="images/portfolio/viz11.jpg" alt="img">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail all branding mockups">
-              <a href="https://github.com/kishorevasan/info370-finalproject" target="blank">
-                <img src="images/portfolio/did.jpg" alt="link">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail all uikits">
-              <a href="https://youtu.be/HvHxbMBxOPU" target="blank">
-                <img src="images/portfolio/db_erd.jpg" alt="link">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail branding">
-              <a class="popup-img" href="images/portfolio/coauthorship.jpg">
-                <img src="images/portfolio/coauthorship.jpg" alt="img">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail webdesign">
-              <a href="http://spotifyplayer.readthedocs.io" target="blank">
-                <img src="images/portfolio/spotify-car-player.jpg" alt="img">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail webdesign">
-              <a href="https://github.com/kishorevasan/AquaMarine" target="blank">
-                <img src="images/portfolio/serve-it.jpg" alt="img">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail webdesign">
-              <a href="http://sneakpeek.readthedocs.io" target="blank">
-                <img src="images/portfolio/security-cam.jpg" class="img-responsive" alt="img">
-              </a>
-            </div>
-
-            <div class="col-lg-4 col-md-6 portfolio-thumbnail webdesign">
-              <a href="https://youtu.be/fuOkgZTxEAY" target="blank">
-                <img src="images/portfolio/pong.jpg" alt="link">
-              </a>
-            </div>
-         </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End section portfolio -->
-
-  <!-- start section journal -->
-  <div id="journal" class="text-left paddsection">
-
-    <div class="container">
-      <div class="section-title text-center">
-        <h2>journal</h2>
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="journal-block">
-        <div class="row">
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-              <a href="kdd_summary.html"><img src="images/kdd_2018.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-                <h4><a href="kdd_summary.html">Network Embedding at KDD</a></h4>
-                <p class="separator"> This year at KDD, network embedding topic dominated most of the papers and talks. In this blog post, I write about network embedding and my key takeaways from attending KDD 2018.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="journal-info">
-              <a href="iconf_summary.html"><img src="images/iconf_banquet.jpg" class="img-responsive" alt="img"></a>
-
-              <div class="journal-txt">
-                <h4><a href="iconf_summary.html">Who is an Information Scientist?</a></h4>
-                <p class="separator"> The definition of Information Science is very broad and often overlapping with other domains. What defines an Information Science paper? In this blog post, I write about identity management as an Information Scientist and key takeaways from iConference 2019.
-                </p>
-              </div>
-            </div>
+          <div class="w3-half">
+            <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
           </div>
         </div>
-      </div>
+        <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+        <button class="w3-button w3-black w3-right w3-section" type="submit">
+          <i class="fa fa-paper-plane"></i> SEND MESSAGE
+        </button>
+      </form>
     </div>
   </div>
-  <!-- End section journal -->
+</div>
 
-
-  <!-- start sectoion contact -->
-  <div id="contact" class="paddsection">
-    <div class="container">
-      <div class="contact-block1">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="contact-contact">
-              <h2 class="mb-30">GET IN TOUCH</h2>
-
-              <ul class="contact-details">
-                <li><span>Seattle</span></li>
-                <li><span>Washington, United States</span></li>
-                <li><span>linkedin.com/in/kishorevasan</span></li>
-                <li><span>kishorev@uw.edu</span></li>
-              </ul>
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-32 w3-opacity w3-hover-opacity-off">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-file w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
   </div>
-  <!-- start sectoion contact -->
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
+</footer>
 
+<script>
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
 
-  <!-- start section footer -->
-  <div id="footer" class="text-center">
-    <div class="container">
-      <div class="socials-media text-center">
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
 
-        <ul class="list-unstyled">
-           <li><a href="https://www.github.com/kishorevasan" target="blank"><i class="ion-social-github"></i></a></li>
-          <li><a href="https://www.linkedin.com/in/kishorevasan" target="blank"><i class="ion-social-linkedin"></i></a></li>
-          <li><a href="https://scholar.google.com/citations?user=yMgHp8wAAAAJ&hl=en&oi=ao" target="blank"><i class="ai ai-google-scholar ai-x"></i></a></li>
-          <li><a href="http://kishorevasan.me/cv/resume-kishore.pdf" target="blank"><i class="ai ai-cv ai-x"></i></a></li>
-        </ul>
-      </div>
-      <p>&copy; Copyrights Kishore. 2018. All rights reserved.</p>
-
-<!--
-      <div class="credits">
-
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Folio
-
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
--->
-        </div>
-    </div>
-  </div>
-  <!-- End section footer -->
-
-  <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/typed/typed.js"></script>
-  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-  <script src="lib/magnific-popup/magnific-popup.min.js"></script>
-  <script src="lib/isotope/isotope.pkgd.min.js"></script>
-
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
-
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
 
 </body>
 </html>
