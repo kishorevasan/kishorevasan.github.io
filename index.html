@@ -8,6 +8,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel='stylesheet' href = "style.css">
 
+<link rel="shortcut icon" href="images/favicon2.png">
+
+
+<script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+<script>
+    window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+    formbutton("create", {action: "https://formspree.io/xpzyjeka"})
+</script>
 
 <body>
 
@@ -44,11 +52,12 @@
   </div>
 </div>
 
+<div class="w3-light-grey">
 <!-- Container (About Section) -->
 <div class="w3-content w3-container w3-padding-32" id="about">
   <h3 class="w3-center">ABOUT ME</h3>
   <p class="w3-center"><em>Think Networks</em></p>
-  <p>I am a PhD student in Network Science at the Network Science Institute at Northeastern University. I work at the Center for Complex Networks Research, advised by Albert Lazslo Barabasi. </p>
+  <p>I am a PhD student in Network Science at the Network Science Institute at Northeastern University. I work at the Center for Complex Networks Research, advised by Albert-László Barabási. </p>
   <div class="w3-row">
     <div class="w3-col m6 w3-center w3-padding-large">
       <p><b><i class="fa fa-user w3-margin-right"></i>Kishore Vasan</b></p><br>
@@ -63,67 +72,60 @@
 
 </div>
 
-
-<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">14+</span><br>
-    Partners
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">55+</span><br>
-    Projects Done
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">89+</span><br>
-    Happy Clients
-  </div>
-  <div class="w3-quarter w3-section">
-    <span class="w3-xlarge">150+</span><br>
-    Meetings
-  </div>
 </div>
+
 
 
 <!-- Container (Portfolio Section) -->
-<div class="w3-content w3-container w3-padding-32" id="publications">
+<div class="w3-content w3-container w3-padding-16" id="publications">
   <h3 class="w3-center">PUBLICATIONS</h3>
 </div>
 
-<h4 id ="pubsection"> Journal Publications </h3>
+<h4 id ="pubsection"><u> Journal Publications </u></h4>
 
 <ul>
-  <li>Item A</li>
+  <li><h5>Who to fund with? Examining the social structure of co-funding in clinical science.</h5></li>
     <ul>
-        <li> Author Names</li>
-        <li> Venue </li>
-        <li> Link to Paper</li>
+        <li id ="authornames"> <b>Kishore Vasan</b>, Carl Bergstrom, Jevin West</li>
+        <li> Journal: TBD </li>
+        <li> Also presented at NetSci-X 2020 conference in Tokyo, Japan.</li>
     </ul>
 </ul>
 
-<h4 id ="pubsection"> Conference Proceedings </h3>
+<h4 id ="pubsection"> <u>Conference Proceedings </u></h4>
 
 <ul>
-  <li>Item A</li>
+  <li><h5>Is Together Better? Examining scientific collaboration across multiple authors, departments, and institutions.</h5></li>
     <ul>
-        <li> Author Names</li>
-        <li> Venue </li>
-        <li> Link to Paper</li>
+        <li id ="authornames">Lovenoor Aulck, <b> Kishore Vasan</b>, Jevin West</li>
+        <li> KDD 2018: BigScholar Workshop. London, UK. </li>
+        <li> [<a href="https://arxiv.org/pdf/1809.04093.pdf" target="_blank">Link</a>]</li>
+    </ul>
+</ul>
+
+<ul>
+  <li><h5>Measuring scientific buzz.</h5></li>
+    <ul>
+        <li id ="authornames"><b> Kishore Vasan</b> and Jevin West</li>
+        <li> iConference 2019 as a poster. Washington, DC.</li>
+        <li> [<a href="https://arxiv.org/pdf/1812.03249.pdf" target="_blank">Link</a>]</li>
     </ul>
 </ul>
 
 
-<h4 id ="pubsection"> PrePrint Papers </h3>
+<h4 id ="pubsection"> <u>PrePrint Papers </u></h4>
 
 <ul>
-  <li>Item A</li>
+  <li><h5>SciSight: Combining faceted navigation and research group detection for COVID-19 exploratory scientific search</h5></li>
     <ul>
-        <li> Author Names</li>
-        <li> Venue </li>
-        <li> Link to Paper</li>
+        <li id ="authornames"> Tom Hope, Jason Portenoy*, <b>Kishore Vasan</b>*, Jonathon Borchardt*, Eric Horvitz, Daniel Weld, Marti Hearst, Jevin West </li>
+        <li> [<a href="https://arxiv.org/pdf/2005.12668.pdf" target="_blank">Link</a>]</li>
     </ul>
 </ul>
 
+<p style="margin-left:20px">* -- denotes equal contribution</p>
 
+<div class="w3-light-grey">
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container w3-padding-32" id="portfolio">
   <h3 class="w3-center">PROJECTS</h3>
@@ -133,41 +135,44 @@
   <div class="w3-row-padding w3-center">
     <div class="w3-col m3">
       <img src="images/projects/covid_network.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="COVID Collaboration Network">
-      <p> <i> COVID Network of Science </i></p>
+      <p> <i> <a href="http://scisight.apps.allenai.org/" target="_blank">COVID Network of Science</a> </i></p>
     </div>
 
     <div class="w3-col m3">
       <img src="images/projects/covid_trials.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Coffee beans">
-      <p><i> COVID Clinical Trials Tracker</i></p>
+      <p><i> <a href="https://kishorevasan.shinyapps.io/coronavirus_clinical_trials/" target="_blank">COVID Clinical Trials Tracker</a></i></p>
     </div>
 
     <div class="w3-col m3">
       <img src="images/projects/wiki_talk.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Wiki Talk Network">
-      <p><i> Wiki Talk Network Analysis</i></p>
+      <p><i> <a href="https://github.com/kishorevasan/wikitalk-network-analysis" target="_blank">Wiki Talk Network Analysis</a></i></p>
     </div>
 
     <div class="w3-col m3">
       <img src="images/projects/the-food-rise.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Comparing different food security variables">
-      <p><i> Food Security in America</i></p>
+      <p><i><a href="https://simran18.shinyapps.io/the-food-rise" target="_blank"> Food Security in America</a></i></p>
     </div>
   </div>
 
   <div class="w3-row-padding w3-center w3-section">
     <div class="w3-col m3">
       <img src="images/projects/3dviz.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Child Mortality and Vaccination">
-      <p><i> Child Mortality and Vaccinations</i></p>
+      <p><i><a href="https://kishorevasan.shinyapps.io/child_mortality_and_vaccinations/" target="_blank">Child Mortality and Vaccinations</a></i></p>
     </div>
 
     <div class="w3-col m3">
-      <img src="images/projects/did.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="My beloved typewriter">
+      <img src="images/projects/did.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Difference-in-Differences Analysis">
+      <p><i><a href="https://github.com/kishorevasan/trump-tweet-forex-impact" target="_blank">Do Trump's tweets affect currency exchange rate?</a></i></p>
     </div>
 
     <div class="w3-col m3">
-      <img src="images/projects/coauthorship.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Empty ghost train">
+      <img src="images/projects/spotify-car-player.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Voice assistant for Spotify">
+      <p><i><a href="https://spotifyplayer.readthedocs.io/en/latest/" target="_blank"> Voice assistant for Spotify </a></i></p>
     </div>
 
     <div class="w3-col m3">
-      <img src="images/projects/spotify-car-player.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity">
+      <img src="images/projects/voice.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Designed a tool to detect emotion through voice">
+      <p><i><a href="https://qr.ae/pNKZud" target="_blank">Emotion Detection using Speech</a></i></p>
     </div>
   </div>
 </div>
@@ -181,6 +186,7 @@
   </div>
 </div>
 
+</div>
 
 <!-- Container (Contact Section) -->
 <div class="w3-content w3-container w3-padding-32" id="contact">
@@ -197,16 +203,16 @@
         <i class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"></i> Email: vasan.k-at-northeastern.edu<br>
       </div>
       <p>Swing by for a cup of <i class="fa fa-coffee"></i>, or leave me a note:</p>
-      <form action="/action_page.php" target="_blank">
+      <form action="https://formspree.io/xpzyjeka" method="post" target="_blank">
         <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
           <div class="w3-half">
-            <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
+            <input class="w3-input w3-border" type="text" placeholder="Name" required name="name">
           </div>
           <div class="w3-half">
-            <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+            <input class="w3-input w3-border" type="text" placeholder="Email" required name="email">
           </div>
         </div>
-        <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
+        <input class="w3-input w3-border" type="text" placeholder="Message" required name="message">
         <button class="w3-button w3-black w3-right w3-section" type="submit">
           <i class="fa fa-paper-plane"></i> SEND MESSAGE
         </button>
@@ -219,9 +225,11 @@
 <footer class="w3-center w3-black w3-padding-32 w3-opacity w3-hover-opacity-off">
   <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
   <div class="w3-xlarge w3-section">
-    <i class="fa fa-file w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <i class="fa fa-linkedin w3-hover-opacity"></i>
+    <a href="./resume-kishore.pdf" target="_blank"><i class="fa fa-file w3-hover-opacity"></i></a>
+    <a href="https://github.com/kishorevasan" target="_blank"><i class="fa fa-github w3-hover-opacity"></i></a>
+    <a href="https://twitter.com/kishore__vasan" target="_blank"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+    <a href="https://linkedin.com/in/kishorevasan" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+
   </div>
   <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-text-green">w3.css</a></p>
 </footer>
@@ -255,6 +263,11 @@ function toggleFunction() {
         x.className = x.className.replace(" w3-show", "");
     }
 }
+
+var frmvalidator = new Validator(“contactform”);
+frmvalidator.addValidation(“name”,”req”,”Please provide your name”);
+frmvalidator.addValidation(“email”,”req”,”Please provide your email”);
+frmvalidator.addValidation(“email”,”email”, “Please enter a valid email address”);
 </script>
 
 </body>
