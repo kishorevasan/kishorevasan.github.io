@@ -152,7 +152,7 @@
 
   <div class="w3-row-padding w3-center w3-section">
     <div class="w3-col m3">
-      <img src="images/projects/3dviz.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Child Mortality and Vaccination">
+      <img id="img101" src="images/projects/3dviz.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Child Mortality and Vaccination">
       <p><i><a href="https://kishorevasan.shinyapps.io/child_mortality_and_vaccinations/" target="_blank">Child Mortality and Vaccinations</a></i></p>
     </div>
 
@@ -238,6 +238,10 @@ function onClick(element) {
   var captionText = document.getElementById("caption");
   captionText.innerHTML = element.alt;
 }
+
+</script>
+
+<script>
 
 // Used to toggle the menu on small screens when clicking on the menu button
 function toggleFunction() {
