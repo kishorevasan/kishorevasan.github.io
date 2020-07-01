@@ -12,10 +12,6 @@
 
 
 <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
-<script>
-    window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
-    formbutton("create", {action: "https://formspree.io/xpzyjeka"})
-</script>
 
 <body>
 
@@ -243,17 +239,6 @@ function onClick(element) {
   captionText.innerHTML = element.alt;
 }
 
-// Change style of navbar on scroll
-window.onscroll = function() {myFunction()};
-function myFunction() {
-    var navbar = document.getElementById("myNavbar");
-    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
-    } else {
-        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
-    }
-}
-
 // Used to toggle the menu on small screens when clicking on the menu button
 function toggleFunction() {
     var x = document.getElementById("navDemo");
@@ -268,6 +253,22 @@ var frmvalidator = new Validator(“contactform”);
 frmvalidator.addValidation(“name”,”req”,”Please provide your name”);
 frmvalidator.addValidation(“email”,”req”,”Please provide your email”);
 frmvalidator.addValidation(“email”,”email”, “Please enter a valid email address”);
+
+window.formbutton=window.formbutton||function(){(formbutton.q=formbutton.q||[]).push(arguments)};
+formbutton("create", {action: "https://formspree.io/xpzyjeka"})
+</script>
+
+<script>
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-white";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
+    }
+}
 </script>
 
 </body>
