@@ -5,6 +5,29 @@ body, html {
   line-height: 1.8;
 }
 
+#my_img{
+  border: 5px solid #555;
+}
+
+.row {
+  display: flex;
+  flex-wrap:wrap;
+}
+
+/* Create three equal columns that sits next to each other */
+.column {
+  flex: 33.33%;
+  padding: 5px;
+  flex-wrap:wrap;
+}
+
+/* On screens that are 992px wide or less, go from four columns to two columns */
+@media screen and (max-width: 480px) {
+  .row {
+    flex-direction: column;
+  }
+}
+
 /* Create a Parallax Effect */
 .bgimg-1, .bgimg-2, .bgimg-3 {
   background-attachment: fixed;
