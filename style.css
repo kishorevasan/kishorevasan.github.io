@@ -5,6 +5,11 @@ body, html {
   line-height: 1.8;
 }
 
+.ui-icon-abc{
+    background: url('./images/blm.jpg') no-repeat rgba(0, 0, 0, 0.4) !important;
+    background-size: 16px 16px;
+}
+
 #my_img{
   border: 5px solid #555;
 }
