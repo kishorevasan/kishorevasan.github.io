@@ -63,7 +63,7 @@ const Graph = ForceGraph3D()(elem)
           return content
         })
         .linkMaterial(link => {
-          return new THREE.LineBasicMaterial({color:link['color']})})
+          return new THREE.LineBasicMaterial({color:link['color'],opacity:0.6,transparent:true})})
         .linkWidth('width')
         .linkCurveRotation(0.2)
         .nodeVal('n_art_sold')
