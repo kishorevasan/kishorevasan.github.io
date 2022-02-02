@@ -192,7 +192,7 @@ const Graph = ForceGraph3D()(elem)
         .backgroundColor('#FAFAFA')
         .nodeRelSize(8)
         .cameraPosition({x:1000,y:100,z:-3000})
-        .d3VelocityDecay(0.65)
+        .d3VelocityDecay(0.5)
         .d3AlphaDecay(0.1)
 //        .warmupTicks(15)
 
