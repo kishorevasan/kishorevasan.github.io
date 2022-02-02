@@ -237,7 +237,7 @@ var interval_func = function(){
           interval = setInterval(interval_func, counter*1+500)
         }else{
           updateComponentsColor()
-          setTimeout(exportOBJGraph(), 5000)
+          //setTimeout(exportOBJGraph(), 5000)
           setTimeout(clearInterval(interval), counter*1 + 500)
         }
   }
