@@ -3,10 +3,76 @@
 const elem = document.getElementById('3d-graph');
 
 // large static graph
-//const Graph = ForceGraph3D()(elem).jsonUrl('./data/artist_net_static.json')
-//      .nodeAutoColorBy('component')
-//      .nodeLabel(node => `${node.label}`)
-//      .onNodeClick(node => window.open(`https://bl.ocks.org/${node.user}/${node.id}`, '_blank'));
+// setup dynamic graph
+
+//var json_parsed = JSON.parse(net_obj)
+
+const objLoader = new THREE.ObjectLoader();
+
+//console.log(net_obj['nodes'][0])
+//console.log(JSON.stringify(net_obj['nodes'][0]))
+//console.log(JSON.parse(JSON.stringify(net_obj['nodes'][0])))
+
+var objMapperNodes = {}
+for(var i = 0; i<net_obj['nodes'].length; i++){
+  var s = net_obj['nodes'][i]
+  var key = Object.keys(s)[6]
+  var s_parsed = objLoader.parse(s['__threeObj'])
+
+  objMapperNodes[net_obj['nodes'][i]['id']] = s_parsed
+}
+
+var objMapperLinks = {}
+for(var i = 0; i<net_obj['links'].length; i++){
+  var s = net_obj['links'][i]
+  var key = Object.keys(s)[7]
+//  console.log(s['__lineObj']["object"])
+  objMapperLinks[net_obj['links'][i]['index']] = objLoader.parse(s['__lineObj'])
+}
+
+//objLoader.parse(
+const Graph = ForceGraph3D()(elem)
+      .graphData(net_obj)
+      .enableNodeDrag(false)
+      .nodeLabel(node =>{
+          var content = ''.concat('<h3 style="color:black;">','Artist: ',node['label'],
+                           '<br>Num art sold: ', node['n_art_sold'],
+                           '<br>Total Earnings: $', Math.round(node['total_earn']),'<h3>')
+          return content
+        })
+        .linkMaterial(link => {
+          return objMapperLinks[link['index']].material})
+        .linkWidth('width')
+        .nodeVal('n_art_sold')
+        .onNodeClick(node=>{
+          var url = ''.concat('https://www.foundation.app/',node['label'])
+          window.open(url);
+        })
+        .nodeThreeObject(node=>{return objMapperNodes[node['id']]})
+        .backgroundColor('#FAFAFA')
+        .nodeRelSize(8)
+        .cameraPosition({x:1000,y:100,z:-3000})
+        .d3VelocityDecay(0.65)
+        .d3AlphaDecay(0.1)
+      /*
+      .
+      .cameraPosition({x:1000,y:100,z:-3000})
+      .linkWidth('width')
+      .linkCurveRotation(10)
+      .linkMaterial(link => {
+          return objMapperLinks[link['index']].material})
+      .nodeThreeObject(node=>{
+        return objMapperNodes[node['id']]
+      })
+      .nodeThreeObjectExtend(true)
+      .onNodeClick(node=>{
+          var url = ''.concat('https://www.foundation.app/',node['label'])
+          window.open(url);
+        })
+*/
+
+/*
+
 
 var curr_net = {"nodes":[],"links":[]}
 var past_counter_link = 0 // updating the old links at the next time step
@@ -215,12 +281,9 @@ curr_date = new Date(curr_date)
 // seconds * minutes * hours * milliseconds = 1 day
 var day = 60 * 60 * 24 * 1000;
 var counter = 0;
-var maxcounter = 140;
+var maxcounter = 120;
 
 var isAnimationActive = true;
-var isRotationActive = true;
-var angle = 0;
-const distance = 5000
 
 var interval_func = function(){
   if(isAnimationActive){
@@ -237,11 +300,16 @@ var interval_func = function(){
           interval = setInterval(interval_func, counter*1+500)
         }else{
           updateComponentsColor()
-          setTimeout(exportOBJGraph(), 5000)
+//          exportOBJGraph()
           setTimeout(clearInterval(interval), counter*1 + 500)
         }
   }
 }
+*/
+
+var isRotationActive = true;
+var angle = 0;
+const distance = 5000
 
 var interval_func_rot = function(){
     if (isRotationActive) {
@@ -254,7 +322,7 @@ var interval_func_rot = function(){
 }
 
 var interval_rotation = setInterval(interval_func_rot, 50)
-var interval = setInterval(interval_func, counter*1+500);
+//var interval = setInterval(interval_func, counter*1+500);
 
 // pause animation
 document.getElementById('animationToggle').addEventListener('click', event => {

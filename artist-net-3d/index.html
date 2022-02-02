@@ -2,7 +2,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>My first three.js app</title>
+  <title>Artist NFT Adoption</title>
   <style>
       body { margin: 0; overflow: hidden;}
   </style>
@@ -18,13 +18,20 @@
 </div>
   <div style="position: absolute; top: 5px; right: 5px; color:black; font-size:20px" onload="myFunction()">
       <h3>Date: <span id='myText'></span></h3>
-      <h3>Time since launch: <span id='myText2'></span></h3>
+      <h3>Days since launch: <span id='myText2'></span></h3>
       <button id="animationToggle" style="margin: 8px; height: 25px; width: 150px;">
       Pause Animation
     </button>
+    <button id="rotationToggle" style="margin: 8px; height: 25px; width: 150px;">
+      Pause Rotation
+    </button>
+    <br>
   </div>
   <script src="//unpkg.com/d3-force-3d"></script>
   <script src="//unpkg.com/three"></script>
+  <script src="download.js"></script>
+  <script src="OBJExporter.js"></script>
+
   <script src="//unpkg.com/3d-force-graph"></script>
   <script src="./data/artist_net_static.js"></script>
   <script src="sketch_force3d.js"></script>
