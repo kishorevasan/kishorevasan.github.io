@@ -15,6 +15,8 @@
     <p>Red indicates new artist/ invite.</p>
     <p>Nodes are sized based on number of art sold.</p>
     <p>Clicking on the node leads to the artist's page.</p>
+    <p>At the final time step (140 days from launch),</p>
+    <p>the top 10 artist communities are highlighted.</p>
 </div>
   <div style="position: absolute; top: 5px; right: 5px; color:black; font-size:20px" onload="myFunction()">
       <h3>Date: <span id='myText'></span></h3>
@@ -26,15 +28,24 @@
       Pause Rotation
     </button>
     <br>
+    <input type="checkbox" id="finalStage" value="1"> Skip to final network
+    <br>
+    Select Version:
+    <br>
+    <input type="radio" id='version1' name='radio1' value="1">1
+    <input type="radio" id='version2' name='radio1' value="2">2
+    <input type="radio" id='version3' name='radio1' value="3">3
+    <input type="radio" id='version4' name='radio1' value="4">4
   </div>
-  <script src="//unpkg.com/d3-force-3d"></script>
-  <script src="//unpkg.com/three"></script>
-  <script src="download.js"></script>
-  <script src="OBJExporter.js"></script>
-
+  <script src="three.js"></script>
   <script src="//unpkg.com/3d-force-graph"></script>
+  <!--script src="download.js"></script>
+  <script src="OBJExporter.js"></script-->
   <script src="./data/artist_net_static.js"></script>
-  <script src="sketch_force3d.js"></script>
+  <script src="./data/artist_net_static_1.js"></script>
+  <script src="./data/artist_net_static_2.js"></script>
+  <script src="./data/artist_net_static_3.js"></script>
+  <script src="sketch_force3d_options.js"></script>
 </body>
 
 </html>

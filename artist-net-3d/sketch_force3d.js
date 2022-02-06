@@ -8,14 +8,6 @@ const elem = document.getElementById('3d-graph');
 //      .nodeLabel(node => `${node.label}`)
 //      .onNodeClick(node => window.open(`https://bl.ocks.org/${node.user}/${node.id}`, '_blank'));
 
-var curr_net = {"nodes":[],"links":[]}
-var past_counter_link = 0 // updating the old links at the next time step
-
-var past_counter_node = 0 // updating the old nodes at the next time step
-var node_idx_mapper = {} // maps the node id name to the graph name
-
-var prev_nodes_timestep = [] // nodes added at the prev timestep with a custom x,y,z
-
 //var new_counter = 0 // n new added until the prev time step
 //var new_counter_2 = 0 // n new added this timestep
 
@@ -166,13 +158,89 @@ function updateComponentsColor(){
         curr_net['links'][i]['transparent'] = true;
       }
     }
-//    Graph.graphData(curr_net)
+}
+//
+// Export to OBJ
+//
+function exportOBJGraph(){
+  var oexporter = new THREE.OBJExporter();
+  var result = oexporter.parse(Graph.scene());
+  console.log(result.obj)
+  download(result.obj, "net-model.obj", "text/plain")
+  download(result.mtl, "net-material.mtl", "text/plain")
+  console.log('obj exported...')
 }
 
-// setup dynamic graph
+var interval_func = function(){
+  if(isAnimationActive){
+        document.getElementById("myText").innerHTML = curr_date.toDateString();
+        document.getElementById("myText2").innerHTML = counter.toString();
+        curr_net = getCurrGraph(counter)
+        Graph.graphData(curr_net);
+
+        counter+=1
+        // update date
+        curr_date = new Date(curr_date.getTime() + day);
+
+        if(counter < maxcounter){
+          clearInterval(interval)
+          interval = setInterval(interval_func(curr_date), counter*100+500)
+        }else{
+          updateComponentsColor()
+          //setTimeout(exportOBJGraph(), 5000)
+          setTimeout(clearInterval(interval), counter*100+500)
+        }
+  }
+}
+
+var interval_func_rot = function(isRotationActive){
+    if (isRotationActive) {
+        Graph.cameraPosition({
+          x: distance * Math.sin(angle),
+          z: distance * Math.cos(angle)
+        });
+        angle += Math.PI / 300;
+  }
+}
+
+// pause animation
+document.getElementById('animationToggle').addEventListener('click', event => {
+//      isAnimationActive ? Graph.pauseAnimation() : Graph.resumeAnimation();
+      isAnimationActive = !isAnimationActive;
+      event.target.innerHTML = `${(isAnimationActive ? 'Pause' : 'Resume')} Animation`;
+});
+
+// pause rotation
+document.getElementById('rotationToggle').addEventListener('click', event => {
+      isRotationActive = !isRotationActive;
+      event.target.innerHTML = `${(isRotationActive ? 'Pause' : 'Resume')} Rotation`;
+    });
+
+// initiate dynamic simulation
+// update the variables
+function setupDynamicData(){
+  curr_net = {"nodes":[],"links":[]}
+  past_counter_link = 0 // updating the old links at the next time step
+
+  past_counter_node = 0 // updating the old nodes at the next time step
+  node_idx_mapper = {} // maps the node id name to the graph name
+
+  prev_nodes_timestep = [] // nodes added at the prev timestep with a custom x,y,z
+
+  // start date
+  curr_date = 'Friday Jan 22 2021 00:00:00';
+  curr_date = new Date(curr_date)
+
+  counter = 0;
+
+  isAnimationActive = true;
+  isRotationActive = true;
+  console.log('starting interval...')
+}
+
+// set global vars
 const Graph = ForceGraph3D()(elem)
         .enableNodeDrag(false)
-        .graphData(curr_net)
         .nodeLabel(node =>{
           var content = ''.concat('<h3 style="color:black;">','Artist: ',node['label'],
                            '<br>Num art sold: ', node['n_art_sold'],
@@ -193,78 +261,85 @@ const Graph = ForceGraph3D()(elem)
         .nodeRelSize(8)
         .cameraPosition({x:1000,y:100,z:-3000})
         .d3VelocityDecay(0.5)
-        .d3AlphaDecay(0.1)
-//        .warmupTicks(15)
+        .d3AlphaDecay(0.1);
 
-//
-// Export to OBJ
-//
-function exportOBJGraph(){
-  var oexporter = new THREE.OBJExporter();
-  var result = oexporter.parse(Graph.scene());
-  console.log(result.obj)
-  download(result.obj, "net-model.obj", "text/plain")
-  download(result.mtl, "net-material.mtl", "text/plain")
-  console.log('obj exported...')
-}
-
-// start date
-var curr_date = 'Friday Jan 22 2021 00:00:00';
-curr_date = new Date(curr_date)
-
-// seconds * minutes * hours * milliseconds = 1 day
-var day = 60 * 60 * 24 * 1000;
-var counter = 0;
-var maxcounter = 140;
-
+var curr_date;
+var curr_net;
+var curr_date;
+var counter;
+var node_idx_mapper;
+var past_counter_node;
+var past_counter_link;
+var prev_nodes_timestep;
 var isAnimationActive = true;
 var isRotationActive = true;
 var angle = 0;
 const distance = 5000
 
-var interval_func = function(){
-  if(isAnimationActive){
-        document.getElementById("myText").innerHTML = curr_date.toDateString();
-        document.getElementById("myText2").innerHTML = counter.toString();
-        var curr_net = getCurrGraph(counter)
-        Graph.graphData(curr_net);
+// seconds * minutes * hours * milliseconds = 1 day
+const day = 60 * 60 * 24 * 1000;
+const maxcounter = 30;
 
-        counter+=1
-        // update date
-        curr_date = new Date(curr_date.getTime() + day);
-        if(counter < maxcounter){
-          clearInterval(interval)
-          interval = setInterval(interval_func, counter*1+500)
-        }else{
-          updateComponentsColor()
-          //setTimeout(exportOBJGraph(), 5000)
-          setTimeout(clearInterval(interval), counter*1 + 500)
-        }
-  }
-}
-
-var interval_func_rot = function(){
-    if (isRotationActive) {
-        Graph.cameraPosition({
-          x: distance * Math.sin(angle),
-          z: distance * Math.cos(angle)
-        });
-        angle += Math.PI / 300;
-  }
-}
+// start things off
+setupDynamicData()
 
 var interval_rotation = setInterval(interval_func_rot, 50)
-var interval = setInterval(interval_func, counter*1+500);
+var interval = setInterval(interval_func, counter + 500);
 
-// pause animation
-document.getElementById('animationToggle').addEventListener('click', event => {
-//      isAnimationActive ? Graph.pauseAnimation() : Graph.resumeAnimation();
-      isAnimationActive = !isAnimationActive;
-      event.target.innerHTML = `${(isAnimationActive ? 'Pause' : 'Resume')} Animation`;
-});
+// set up static graph stuff
+const objLoader = new THREE.ObjectLoader();
 
-// pause rotation
-document.getElementById('rotationToggle').addEventListener('click', event => {
-      isRotationActive = !isRotationActive;
-      event.target.innerHTML = `${(isRotationActive ? 'Pause' : 'Resume')} Rotation`;
-    });
+/*
+var objMapperNodes = {}
+for(var i = 0; i<net_obj['nodes'].length; i++){
+  var s = net_obj['nodes'][i]
+  var key = Object.keys(s)[6]
+  var s_parsed = objLoader.parse(s['__threeObj'])
+  objMapperNodes[net_obj['nodes'][i]['id']] = s_parsed
+}
+
+var objMapperLinks = {}
+for(var i = 0; i<net_obj['links'].length; i++){
+  var s = net_obj['links'][i]
+  var key = Object.keys(s)[7]
+//  console.log(s['__lineObj']["object"])
+  objMapperLinks[net_obj['links'][i]['index']] = objLoader.parse(s['__lineObj'])
+}
+*/
+
+// final stage click
+
+function displayFinalGraph(){
+  Graph = ForceGraph3D()(elem)
+      .graphData(net_obj)
+      .enableNodeDrag(false)
+      .nodeLabel(node =>{
+          var content = ''.concat('<h3 style="color:black;">','Artist: ',node['label'],
+                           '<br>Num art sold: ', node['n_art_sold'],
+                           '<br>Total Earnings: $', Math.round(node['total_earn']),'<h3>')
+          return content
+        })
+        .linkMaterial(link => {
+          return objMapperLinks[link['index']].material})
+        .linkWidth('width')
+        .onNodeClick(node=>{
+          var url = ''.concat('https://www.foundation.app/',node['label'])
+          window.open(url);
+        })
+        .nodeThreeObject(node=>{return objMapperNodes[node['id']]})
+        .backgroundColor('#FAFAFA')
+        .cameraPosition({x:1000,y:100,z:-3000})
+        .d3VelocityDecay(1)
+
+}
+
+// toggle final stage
+/*
+document.getElementById('finalStage').addEventListener('change',e =>{
+    if(e.target.checked==true){
+      displayFinalGraph()
+    }else{
+      dynamicSimulation()
+    }
+})
+*/

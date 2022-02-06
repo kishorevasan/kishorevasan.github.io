@@ -2,11 +2,16 @@
 //  <script src="OrbitControls.js"></script>
 const elem = document.getElementById('3d-graph');
 
+// toggle final stage
+document.getElementById('finalStage').addEventListener('change',e =>{
+  console.log(e.target.value)
+  console.log(e.target.checked)
+})
+
 // large static graph
 // setup dynamic graph
 
 //var json_parsed = JSON.parse(net_obj)
-
 const objLoader = new THREE.ObjectLoader();
 
 //console.log(net_obj['nodes'][0])
@@ -18,7 +23,6 @@ for(var i = 0; i<net_obj['nodes'].length; i++){
   var s = net_obj['nodes'][i]
   var key = Object.keys(s)[6]
   var s_parsed = objLoader.parse(s['__threeObj'])
-
   objMapperNodes[net_obj['nodes'][i]['id']] = s_parsed
 }
 
@@ -43,17 +47,16 @@ const Graph = ForceGraph3D()(elem)
         .linkMaterial(link => {
           return objMapperLinks[link['index']].material})
         .linkWidth('width')
-        .nodeVal('n_art_sold')
         .onNodeClick(node=>{
           var url = ''.concat('https://www.foundation.app/',node['label'])
           window.open(url);
         })
         .nodeThreeObject(node=>{return objMapperNodes[node['id']]})
         .backgroundColor('#FAFAFA')
-        .nodeRelSize(8)
+//        .nodeRelSize(8)
         .cameraPosition({x:1000,y:100,z:-3000})
-        .d3VelocityDecay(0.65)
-        .d3AlphaDecay(0.1)
+        .d3VelocityDecay(1)
+//        .d3AlphaDecay(0.1)
       /*
       .
       .cameraPosition({x:1000,y:100,z:-3000})
