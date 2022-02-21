@@ -32,7 +32,7 @@ function getCurrGraph(timestamp){
   //var curr_net = {"nodes":[],"links":[]}
   for (var i = 0; i < net_data['links'].length; i++) {
     if(net_data['links'][i]['time'] == timestamp){
-      var color=0xc42e0c;//new link
+      var color= 0xff00ff// red: 0xc42e0c;//new link
       var width = 15;
       curr_net['links'].push({'source':net_data['links'][i]['source'],
                               'target':net_data['links'][i]['target'],
@@ -52,7 +52,7 @@ function getCurrGraph(timestamp){
         var tmpz = Graph.graphData().nodes[node_idx_tmp].z
         new_nodes_to_consider.push(net_data['links'][i]['source'])
         prev_nodes_timestep.push(net_data['links'][i]['source'])
-        new_links_connections[net_data['links'][i]['source']] = [tmpx*0.95, tmpy*0.95, tmpz*0.95]
+        new_links_connections[net_data['links'][i]['source']] = [tmpx*0.92, tmpy*0.92, tmpz*0.92]
       }else{
         // try if the neighbors neighbor has a location
 
@@ -68,7 +68,7 @@ function getCurrGraph(timestamp){
             var tmpz = Graph.graphData().nodes[node_idx_tmp].z
             new_nodes_to_consider.push(net_data['links'][i]['source'])
             prev_nodes_timestep.push(net_data['links'][i]['source'])
-            new_links_connections[net_data['links'][i]['source']] = [tmpx*0.85, tmpy*0.85, tmpz*0.85]
+            new_links_connections[net_data['links'][i]['source']] = [tmpx*0.9, tmpy*0.9, tmpz*0.9]
           }
 
         }
@@ -85,7 +85,7 @@ function getCurrGraph(timestamp){
   for (var i = 0; i < net_data['nodes'].length;i++){
     var node_id = net_data['nodes'][i]['id']
     if(net_data['nodes'][i]['time']==timestamp){
-      var color=0xc42e0c;//c42e0c; // new node
+      var color=0xff00ff//0xc42e0c;//c42e0c; // new node
 
       if(new_nodes_to_consider.includes(node_id)){
         curr_net['nodes'].push({'id':node_id,
@@ -129,7 +129,7 @@ var component_colors = {3:0xA452A7,
                         29:0x8CA231,
                         57:0xD74322,
                         15:0x4194A2,
-                        53:0xACCAF0,
+                        53:0x4a3007,// old: 0xACCAF0,// maybe
                         296:0xEF7232,
                         25:0x0B61EF,
                         43:0x07592A,
@@ -137,11 +137,13 @@ var component_colors = {3:0xA452A7,
                         238:0xEC9EE7}
 
 // update the colors based on component
+// final step...
 function updateComponentsColor(){
     for(var i = 0; i<curr_net['nodes'].length; i++){
       var col = component_colors[curr_net['nodes'][i]['component']]
       if(col != undefined){
         curr_net['nodes'][i]['color'] = col
+        curr_net['nodes'][i]['n_art_sold'] = curr_net['nodes'][i]['n_art_sold']*15
       }else{
         curr_net['nodes'][i]['color'] = 0x808080
       }
@@ -161,7 +163,7 @@ function updateComponentsColor(){
         curr_net['links'][i]['transparent'] = false;
       }else{
         curr_net['links'][i]['color'] = 0x808080
-        curr_net['links'][i]['opacity'] = 0.5
+        curr_net['links'][i]['opacity'] = 0.1
         curr_net['links'][i]['transparent'] = true;
       }
     }
@@ -169,7 +171,9 @@ function updateComponentsColor(){
 }
 
 // setup dynamic graph
-var Graph = ForceGraph3D()(elem)
+var Graph = ForceGraph3D({rendererConfig:{preserveDrawingBuffer:true}})
+        (elem)
+        .backgroundColor('#ADD8E6')//'#FAFAFA')
         .enableNodeDrag(false)
         .graphData(curr_net)
         .nodeLabel(node =>{
@@ -182,30 +186,16 @@ var Graph = ForceGraph3D()(elem)
           return new THREE.LineBasicMaterial({color:link['color'],opacity:link['opacity'],
             transparent:link['transparent']})})
         .linkWidth('width')
-        .linkCurveRotation(5)
-        .nodeVal(node => {return node['n_art_sold']*5})
+        .linkCurvature(0.2)
+        .nodeVal(node => {return node['n_art_sold']*30})
         .onNodeClick(node=>{
           var url = ''.concat('https://www.foundation.app/',node['label'])
           window.open(url);
         })
-        .backgroundColor('#FAFAFA')
-        .nodeRelSize(8)
-        .cameraPosition({x:1000,y:100,z:-3000})
-        .d3VelocityDecay(0.5)
-        .d3AlphaDecay(0.1)
-//        .warmupTicks(15)
-
-//
-// Export to OBJ
-//
-function exportOBJGraph(){
-  var oexporter = new THREE.OBJExporter();
-  var result = oexporter.parse(Graph.scene());
-  console.log(result.obj)
-  download(result.obj, "net-model.obj", "text/plain")
-  download(result.mtl, "net-material.mtl", "text/plain")
-  console.log('obj exported...')
-}
+        .nodeAutoColorBy(node=>{return node['component']})
+        .cameraPosition({x:8000,y:-2400,z:6000})
+        .d3VelocityDecay(0.45)
+        .d3AlphaDecay(0.05)
 
 // start date
 var curr_date = 'Friday Jan 22 2021 00:00:00';
@@ -219,7 +209,8 @@ var maxcounter = 140;
 var isAnimationActive = true;
 var isRotationActive = true;
 var angle = 0;
-var distance = 5000
+
+var distance = 12000
 
 var interval_func = function(){
   if(isAnimationActive){
@@ -233,11 +224,11 @@ var interval_func = function(){
         curr_date = new Date(curr_date.getTime() + day);
         if(counter < maxcounter){
           clearInterval(interval)
-          interval = setInterval(interval_func, counter*10+500)
+          interval = setInterval(interval_func, counter*2+500)
         }else{
           updateComponentsColor()
           //setTimeout(exportOBJGraph(), 5000)
-          setTimeout(clearInterval(interval), counter*10 + 500)
+          setTimeout(clearInterval(interval), counter*2 + 500)
         }
   }
 }
@@ -246,14 +237,15 @@ var interval_func_rot = function(){
     if (isRotationActive) {
         Graph.cameraPosition({
           x: distance * Math.sin(angle),
-          z: distance * Math.cos(angle)
+//          y: distance_y * (counter/10),
+          z: distance * Math.cos(angle),
         });
         angle += Math.PI / 300;
   }
 }
 
-var interval_rotation = setInterval(interval_func_rot, 50)
-var interval = setInterval(interval_func, counter*10+500);
+var interval_rotation = setInterval(interval_func_rot, 10)
+var interval = setInterval(interval_func, counter*5+500);
 
 // pause animation
 document.getElementById('animationToggle').addEventListener('click', event => {
@@ -272,24 +264,25 @@ document.getElementById('rotationToggle').addEventListener('click', event => {
 // final stage click
 ///
 
-const objLoader = new THREE.ObjectLoader();
-var objMapperNodes = {}
-for(var i = 0; i<net_obj['nodes'].length; i++){
-  var s = net_obj['nodes'][i]
-  var key = Object.keys(s)[6]
-  var s_parsed = objLoader.parse(s['__threeObj'])
-  objMapperNodes[net_obj['nodes'][i]['id']] = s_parsed
-}
-
-var objMapperLinks = {}
-for(var i = 0; i<net_obj['links'].length; i++){
-  var s = net_obj['links'][i]
-  var key = Object.keys(s)[7]
-  objMapperLinks[net_obj['links'][i]['index']] = objLoader.parse(s['__lineObj'])
-}
-
 function displayFinalGraph(){
-  Graph = ForceGraph3D()(elem)
+  var objLoader = new THREE.ObjectLoader();
+  var objMapperNodes = {}
+  for(var i = 0; i<net_obj['nodes'].length; i++){
+    var s = net_obj['nodes'][i]
+    var key = Object.keys(s)[6]
+    var s_parsed = objLoader.parse(s['__threeObj'])
+    objMapperNodes[net_obj['nodes'][i]['id']] = s_parsed
+  }
+
+  var objMapperLinks = {}
+  for(var i = 0; i<net_obj['links'].length; i++){
+    var s = net_obj['links'][i]
+    var key = Object.keys(s)[7]
+    objMapperLinks[net_obj['links'][i]['index']] = objLoader.parse(s['__lineObj'])
+  }
+
+  Graph = ForceGraph3D({rendererConfig:{preserveDrawingBuffer:true}})(elem)
+      .backgroundColor('#ADD8E6')
       .graphData(net_obj)
       .enableNodeDrag(false)
       .nodeLabel(node =>{
@@ -306,15 +299,18 @@ function displayFinalGraph(){
           window.open(url);
         })
         .nodeThreeObject(node=>{return objMapperNodes[node['id']]})
-        .backgroundColor('#FAFAFA')
-        .cameraPosition({x:1000,y:100,z:-3000})
+        .cameraPosition({x:5500,y:-4400,z:15000})
         .d3VelocityDecay(1)
 
-  distance = 12000
+  //distance = 12000
   if(isAnimationActive == true){
     document.getElementById('animationToggle').click()
   }
   clearInterval(interval)
+
+  // screencap
+//  interval = setInterval(screencap, 10)
+
 }
 
 // toggle final stage

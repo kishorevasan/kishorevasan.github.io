@@ -8,11 +8,12 @@
   </style>
 </head>
 <body>
+  <a id="downloadAnchorElem" style="display:none"></a>
   <div id="3d-graph"> </div>
   <div style="position: absolute; top: 5px; left: 5px; color:black; font-size:20px">
     <h2>Artist Social Network</h2>
     <p>Nodes: Artists, Links: Invites</p>
-    <p>Red indicates new artist/ invite.</p>
+    <p>Magenta indicates new artist/ invite.</p>
     <p>Nodes are sized based on number of art sold.</p>
     <p>Clicking on the node leads to the artist's page.</p>
     <p>At the final time step (140 days from launch),</p>
@@ -29,23 +30,11 @@
     </button>
     <br>
     <input type="checkbox" id="finalStage" value="1"> Skip to final network
-    <br>
-    Select Version:
-    <br>
-    <input type="radio" id='version1' name='radio1' value="1">1
-    <input type="radio" id='version2' name='radio1' value="2">2
-    <input type="radio" id='version3' name='radio1' value="3">3
-    <input type="radio" id='version4' name='radio1' value="4">4
   </div>
   <script src="three.js"></script>
   <script src="//unpkg.com/3d-force-graph"></script>
-  <!--script src="download.js"></script>
-  <script src="OBJExporter.js"></script-->
-  <script src="./data/artist_net_static.js"></script>
-  <script src="./data/artist_net_static_1.js"></script>
-  <script src="./data/artist_net_static_2.js"></script>
-  <script src="./data/artist_net_static_3.js"></script>
-  <script src="sketch_force3d_options.js"></script>
+  <script src="./data/artist_net_static_single.js"></script>
+  <script src="sketch_force3d_og.js"></script>
 </body>
 
 </html>
