@@ -64,15 +64,15 @@ body, html {
 
 .pubsection {
   margin-left: 20px;
-  font-size: 25px;
+  font-size: 15px;
 }
 
 .authornames{
-  font-size: 18px;
+  font-size: 16px;
 }
 
 p{
-  font-size: 18px;
+  font-size: 14px;
 }
 #me{
   font-weight: boldest
