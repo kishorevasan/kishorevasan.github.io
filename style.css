@@ -62,10 +62,19 @@ body, html {
   }
 }
 
-#pubsection {
-  margin-left: 20px
+.pubsection {
+  margin-left: 20px;
+  font-size: 25px;
 }
 
-#authornames{
-  font-size:15px;
+.authornames{
+  font-size: 18px;
 }
+
+p{
+  font-size: 18px;
+}
+#me{
+  font-weight: boldest
+}
+
