@@ -147,7 +147,7 @@ var isAnimationActive = true;
 var isRotationActive = true;
 var angle = 0;
 
-var distance = 11000
+var distance = 12000
 
 var interval_func = function(){
   if(isAnimationActive){
@@ -160,11 +160,11 @@ var interval_func = function(){
         curr_date = new Date(curr_date.getTime() + day);
         if(counter < maxcounter){
           clearInterval(interval)
-          interval = setInterval(interval_func, 250)
+          interval = setInterval(interval_func, 200)
         }else{
           //updateComponentsColor()
           //setTimeout(exportOBJGraph(), 5000)
-          setTimeout(clearInterval(interval), 250)
+          setTimeout(clearInterval(interval), 200)
         }
   }
 }
@@ -180,8 +180,8 @@ var interval_func_rot = function(){
   }
 }
 
-var interval_rotation = setInterval(interval_func_rot, 1)
-var interval = setInterval(interval_func, 150);
+var interval_rotation = setInterval(interval_func_rot, 50)
+var interval = setInterval(interval_func, 200);
 
 // pause animation
 document.getElementById('animationToggle').addEventListener('click', event => {
