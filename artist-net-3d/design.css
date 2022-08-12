@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+canvas {
+  cursor: grab;
+  display: block;
+}
+
+canvas:active {
+  cursor: grabbing;
+}
+
+.hovered {
+  cursor: help;
+}
+
+.label {
+  color: #FFFFFF;
+  font-size: 20px;
+  font-family: sans-serif;
+  padding: 2px;
+}

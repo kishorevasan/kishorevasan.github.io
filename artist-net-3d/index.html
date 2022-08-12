@@ -2,41 +2,41 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Artist NFT Adoption</title>
-  <style>
-      body { margin: 0; overflow: hidden;}
-  </style>
+  <!--meta http-equiv="refresh" content="60" -->
+  <title>NFT Artist Network</title>
+  <link rel="stylesheet" href="design.css">
 </head>
 <body>
-  <div id="3d-graph"> </div>
-  <div style="position: absolute; top: 5px; left: 5px; color:black; font-size:20px">
-    <h2>Artist Social Network</h2>
-    <p>Nodes: Artists, Links: Invites</p>
-    <p>Magenta indicates new artist/ invite.</p>
-    <p>Nodes are sized based on number of art sold.</p>
-    <p>Clicking on the node leads to the artist's page.</p>
-    <p>At the final time step (140 days from launch),</p>
-    <p>the top 10 artist communities are highlighted.</p>
-</div>
-  <div style="position: absolute; top: 5px; right: 5px; color:black; font-size:20px" onload="myFunction()">
+  <a id="downloadAnchorElem" style="display:none"></a>
+  <div style="position: absolute; bottom: 5px; left: 5px; color:white; font-size:12px">
+    <h4>Click on the artist to go to their Foundation profile.</h4>
+  </div>
+  <div style="position: absolute; top: 5px; left: 5px; color:white; font-size:20px">
+    <button id="rotationToggle" style="margin: 8px; height: 40px; width: 70px;">
+        Pause Rotation
+    </button>
+    <button id="linksToggle" style="margin: 8px; height: 40px; width: 70px;">
+        Hide Links
+    </button>
+  </div>
+  <!--div id="3d-graph"> </div>
+  <div style="position: absolute; top: 5px; right: 5px; color:white; font-size:20px" onload="myFunction()">
       <h3>Date: <span id='myText'></span></h3>
       <h3>Days since launch: <span id='myText2'></span></h3>
       <button id="animationToggle" style="margin: 8px; height: 25px; width: 150px;">
       Pause Animation
     </button>
-    <button id="rotationToggle" style="margin: 8px; height: 25px; width: 150px;">
-      Pause Rotation
-    </button>
+
     <br>
-    <input type="checkbox" id="finalStage" value="1"> Skip to final network
-  </div>
+    <input type="checkbox" id="finalStage" value="1"> Skip to final network>
+  </div-->
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
-
+  <!--script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script-->
   <script src="three.js"></script>
-  <script src="//unpkg.com/3d-force-graph"></script>
-  <script src="sketch_force3d_og.js"></script>
+  <script src="OrbitControls.js"></script>
+  <script src="CSS2D.js"></script>
+  <script src="./data/artist_net_static_single.js"></script>
+  <script src="net_3d.js"></script>
 </body>
 
 </html>
