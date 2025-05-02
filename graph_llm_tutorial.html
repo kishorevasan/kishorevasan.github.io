@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Kishore Vasan - Network Scientist</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href = "style.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
+
+
+<link rel="shortcut icon" href="images/favicon2.png">
+
+<script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YBG6QEP05B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YBG6QEP05B');
+</script>
+
+<style>
+  .container {
+    max-width: 900px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  p {
+    font-size:1.2em
+  }
+
+  summary {
+    font-size: 1.25em;
+    font-weight: bold;
+    padding: 10px;
+    cursor: pointer;
+    background-color: lightgray;
+    border-radius: 5px;
+    margin-top: 20px;
+  }
+
+  details {
+    margin-bottom: 10px;
+  }
+
+
+  pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    overflow-x: auto;
+    display: block;
+    border-left: 3px solid #3498db;
+  }
+
+  ul {
+    margin-left: 20px;
+    font-size:1.2em;
+  }
+
+  a {
+    color: #3498db;
+  }
+
+  blockquote {
+    background: #ecf0f1;
+    border-left: 5px solid #3498db;
+    margin: 20px 0;
+    padding: 15px;
+  }
+</style>
+</head>
+
+<body>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="./index.html" class="w3-bar-item w3-button">HOME</a>
+  </div>
+</div>
+
+<div class = 'container'>
+<h2>TrialQuery: AI-powered Clinical Trials Explorer</h2>
+<h3>A chatbot implementation made using knowledge graphs.</h3>
+
+<img src="./images/llm/sora_gpt_robot.jpeg" alt="Agent assisting researchers" width="80%" height="400">
+
+<p><strong>TLDR</strong></p>
+
+<ul>
+  <li> Tracking innovation in clinical trials, and beyond, is essential to discover latest trends, formulate new hypotheses, and identify inefficiencies in resource allocation.</li>
+  <li> Language models present a powerful opportunity to support this process. </li>
+  <li> We present <i>TrialQuery</i>, a hybrid, graph-based Retrieval-Augmented Generation (RAG) system grounded in real-time clinical trials data.</li>
+  <li> This blog serves as a 0 to 1 implementation guide to building Graph RAG and AI agentic applications using data.</li>
+  <li> Along the way, we will learn the following concepts <i>knowledge graphs, RAGs</i> and tools <i>Cypher, Neo4j, LangChain, OpenAI API, Langsmith</i></li>
+</ul>
+
+<h3> Introduction</h3>
+
+<p>
+Clinical trials are the cornerstone of medical innovation, offering critical insights into the development and validation of new therapies.
+However, navigating the growing volume and complexity of clinical trial data remains a challenge.
+We introduce <strong>TrialQuery</strong>, an intelligent chatbot powered by a hybrid Graph-based Retrieval-Augmented Generation (RAG) system that enables natural language exploration of real-time clinical trials data.
+
+Our AI system allows users to ask high-level questions—such as <i>“What are the most studied drugs in the last five years?”</i>—as well as targeted ones like <i>“How many experimental treatments have shown positive results for diabetes?”</i>
+By leveraging knowledge graphs and language models, we bring structure, reasoning, and real-time data access to the forefront of research exploration.<br><br>
+
+In this blog post, we’ll walk through a step-by-step guide to building this system from the ground up. We will extract public clinical trials data and feed it into a Neo4J database, and build a LLM agentic system that conducts semantic and graph based reasoning using that data. Along the way, we’ll explore the key concepts that form the foundation of the application.
+
+This application-driven tutorial offers a comprehensive resource for getting started with Graph-based Agentic Systems. Let’s dive in!
+</p>
+
+<details open>
+  <summary>LLM Basics</summary>
+  <h4>Why are LLM so hot right now?</h4>
+<p>
+Language models are popular because of their ability to translate natural language into actionable insights, and help automate a wide range of tasks that require human effort.
+It is time consuming to write a sql query merging several tables but LLMs can help generate them easily.
+The model can also run the code on a database and retrieve the results. This elevates the performance of the model from text generation to an agentic system.
+This agentic ability expedites human workflow in data-driven projects.
+
+  </p>
+
+  <h4>But there are some limitations...</h4>
+  <ul>
+    <li>Language models have a specific knowledge cutoff. It is expensive to retrain models on latest data, and hence, the model cannot reason about new topics that were discussed after the training date.</li>
+    <li>Lack of domain knowledge. The general language model may lack key data points regarding clinical trials like the treatment arm.</li>
+    <li>In the absence of ground truth data, the models also hallucinate. For example, if you ask a model about ongoing clinical trials, it will be unable to answer and provide incorrect responses.</li>
+    <li>As such, the lack of accurate data, and the black box retrieval process makes it difficult to verify sources and responses.</li>
+  </ul>
+
+  <h4>How to Help LLMs Do Better?</h4>
+  <ul>
+    <li><strong>Fine-tuning:</strong> We can collect domain specific information and train the language model using that data. However, this is an expensive process.</li>
+    <li><strong>Few-shot learning:</strong> We can provide examples in the prompt to answer different types of questions. However, this increase the token space and cost.</li>
+    <li><strong>Grounding:</strong> We can provide the model context from a large data sample to help guide the responses. This helps ground the model to a specific domain./li>
+  </ul>
+</details>
+
+<h3>Retrieval Augmented Generation (RAG)</h3>
+
+<p>
+
+Language models are great at comprehending existing knowledge, but may suffer from over-generalization. We can use a technique known as Retrieval Augmented Generation (RAG) to help provide better answer.
+Instead of relying solely on the model’s internal knowledge, this technique incorporates external information from an existing database, helping ground answers in real, domain-specific context and decrease hallucination.
+Under the hood, the RAG method fetches relevant document or data points using embeddings, and feeds them into the language model as contextual information. This helps generate grounded context-aware responses.
+
+<h4>Graph RAG</h4>
+
+<img src="images/llm/graph_rag.jpeg" class="w3-image w3-round" style="width:80%; height:300px">
+
+<p>
+Typically, information retrieval happens using semantic embeddings. This often misses the relationship information between different data points and sources.
+To remedy this, a popular approach is to rely on graph data, also knowledge graphs. This helps transform the unstructured text data into a graph representation to enable more context-aware and rich responses.
+By modeling data as a graph, it builds deeper relationships between concepts beyond simple co-occurrence, leading to improved search relevancy.
+Further, Graph RAG supports granular filtering across diverse datasets, allowing for more precise and targeted information retrieval in complex environments.
+<br><br>
+
+In summary, Graph RAGs is a powerful technique that leverages the relationships and hierarchies between entities within a broader knowledge network, leading to search results with greater depth and relevance. For more info on Graph RAG, read this <a href="https://neo4j.com/blog/developer/enhance-rag-knowledge-graph/" target="_blank">blog post</a>.
+</p>
+
+<h3> Tools and Resources </h3>
+
+<details>
+  <summary>Cypher Language</summary>
+<p>
+  Cypher is a popular graph query language used to retrieve information regarding data that is stored in a graph format. This is the underlying coding language that powers graph databases like Neo4J.
+
+<br>
+Specifically, labels are used to define nodes; and relationships are used to classify connections between nodes. Each node may have properties, allowing us to uniquely identify nodes. Each relationship must have a direction and a type.
+<br>
+
+The language follows a basic syntax:
+
+<code>()-[]->()  where () is the node and -[]->` is the directional relationship between two nodes.
+</code>
+
+We can use this syntax to build different properties:
+
+<ul>
+<li><strong>Selecting nodes</strong>: MATCH syntax is used to retrieve nodes using the specified pattern. – this is the most important clause.</li>
+
+<li> <strong>Filtering nodes</strong>: We can use the WHERE clause to filter based on the node/ relationship properties.</li>
+
+<li><strong>Creating nodes</strong>: We use the MERGE clause to add nodes to the database.</li>
+
+<li><strong>Add/ update properties</strong>: We can use the SET clause to update the property of the nodes.</li>
+
+<li><strong>Delete nodes</strong>: We use the DELETE clause after selecting (MATCH) to delete the nodes.</li>
+</ul>
+<p>
+<strong>Note</strong>: We cannot delete nodes that have existing relationships. So we use DETACH DELETE
+<br>
+<strong>Note</strong>: The graph schema must always follow a directional type. We can query undirected relationship (bi-directional) using the syntax -[]- to search and return results from both directions.
+<br><br>
+<strong>Here are some example to illustrate Cypher:</strong>
+<br>
+  <strong>1) Number of clinical trials in the US:</strong>
+  </p>
+  <pre>
+    MATCH (ct:ClinicalTrial)-[:IN_COUNTRY]->(c:Country {{name: "United States"}})
+    RETURN COUNT(ct)
+    </pre>
+
+<p>
+  <strong>2) Find the co-sponsors of the trials by GlaxoSmithKline</strong>
+</p>
+  <pre>
+MATCH (s:Sponsor {{name: "GlaxoSmithKline"}})-[:SPONSORS]->(ct:ClinicalTrial)<-[:SPONSORS]-(s2:Sponsor)
+WHERE s<>s2
+RETURN s2.name
+  </pre>
+</details>
+
+<details>
+  <summary>LangChain</summary>
+<p>
+  LangChain is designed to accelerate the development of LLM applications.
+<br>
+  There are a few key benefits:
+  </p>
+  <ul>
+  <li>Enables developers to to build applications quickly, integrate with external components and data sources.</li>
+  <li>It allows you to swap several LLM models with a single parameter change.   Allow you to combine language model with different data sources and third party APIs
+</li>
+  <li>out of the box integrations with APIs and services like Neo4j</li>
+  </ul>
+<p>
+  The key technical components on this framework:
+</p>
+<ul>
+  <li>Model interaction: interact with different LLMs with ease.</li>
+  <li>Data connection and Retrieval : specifically useful for access and transforming raw data</li>
+  <li>Chains: fulfil an instruction for a task</li>
+  <li>Agents: perform specific tasks and aggregate results</li>
+  <li>Memory: allow applications to retain context</li>
+  <li> Retrievers: They are langchain documents that allow you to retrieve documents using an unstructured query.</li>
+</ul>
+
+</details>
+
+<details>
+  <summary>Neo4J</summary>
+<p>
+  Neo4J is a native graph database, where data is stored as objects (nodes) and relationships (links), designed specifically for graph traversal. The platform uses Cypher graph language to access and retrieve information. They are stored using nodes, relationships, labels, properties.
+
+Typically data is stored in tables and rows. Yet, this query isn't great when we want to use the relationships between tables as our primary analysis.
+Transforming tables and rows into a graph database structure allows us to efficiently model and query complex relationships.
+
+<br>
+Graphs are useful when:
+</p>
+<ul>
+<li>When the problem requires understanding the relationship between entities.</li>
+<li>When the problem involves a hierarchy.</li>
+<li>When the problem requires exploring relationships of varying or unknown depth.</li>
+<li>When the problem requires evaluating routes or paths through a network.</li>
+</ul>
+
+<p>
+This set up especially valuable in our clinical trials usecase. We care about aggregate level insights like what drugs are tested where, and the underlying relationships between drugs and diseases.
+</p>
+</details>
+
+<details>
+
+<summary>StreamLit </summary>
+
+<p>
+Stream lit is an open source Python library that allows developers to create web applications for data-centric projects with minimal effort.
+The python implementation of Streamlit library provides methods to create Chat elements making it easy to build a chatbot.
+In general, it serves as a front end wrapper that combines AI elements with Python code – cool!!
+<br>
+A deepdive into this tool is available <a href="https://docs.streamlit.io/develop/tutorials/chat-and-llm-apps/build-conversational-apps" target='_blank'>here</a>.
+</p>
+</details>
+
+<h2> TrialQuery Implementation </h2>
+
+<p>
+The code to get build the application can be found on Github <a href="https://github.com/kishorevasan/ct-graph-llm" target="_blank">here</a>. Finish Step 0 and you can begin running the app locally.
+
+In this blog post, we will walk through some of the key elements of the application.
+</p>
+
+<h3> Step 0: Preparation </h3>
+
+<p>
+Before beginning the application we have a few setup steps.
+<br>
+1) <strong>OpenAI API</strong>. We will use GPT as the primary model for embeddings. Login to the <a href="https://openai.com/api/" target="_blank">OpenAI portal</a>, set up a developer account, and create an application key. The key should start with "sk-"
+
+<code>
+  ### make sure the LLM works
+  llm = OpenAI(openai_api_key=os.getenv("OPENAI_API_KEY"))
+  response = llm.invoke("What is a Large Language Model?")
+
+  print(response)
+</code>
+
+<strong>Note</strong>: You may need a credit card and some deposit amount to initalize the OpenAI service.
+Alternatively, you can also use ollama service and use the Llama models locally. More info <a href = "https://ollama.com" target='_blank'>here</a>.
+
+<br><br>
+2) Neo4J database. We are going to use Neo4J graph database to store our clinical trials data.
+<br>
+There are two ways to set up the Neo4J database:
+<br>
+a) <strong>Local implementation</strong>:
+<br>
+Downlaod the Neo4J desktop application <a href="https://neo4j.com" target='_blank'>here</a>. Initialize an instance. Go to Plugins inside Neo4J database and enable APOC plugin.
+<br>
+b) <strong>Server implementation</strong>:
+<br>
+We can use AuraDB, a cloud service provider of Neo4J database. Create a developer account <a href="https://neo4j.com/product/auradb/" target='_blank'>here</a>. In the instance section you will find the databse URI.
+
+Once we have initialized instance we can connect to it:
+</p>
+<pre>
+  ### if connecting to a local service
+  URI = "bolt://0.0.0.0:7687" # or "neo4j+s://add_uri.databases.neo4j.io"
+  AUTH = ("neo4j", "password")
+
+  graph = Neo4jGraph(
+      url=URI,
+      username=AUTH[0],
+      password=AUTH[1]
+  )
+  print(graph)
+</pre>
+
+<br>
+<p>
+3) LangSmith API. It is a platform developed by LangChain to support the development, debugging, and monitoring of LLM applications. It offers tools for observability, evaluation, and prompt engineering.​
+<br>
+I like to think of it as a wrapper for Gen AI tooling and experimentation, similar to how Google Analytics serves as a wrapper for websites.
+
+Learn more about LangSmith <a href='https://youtu.be/Hab2CV_0hpQ' target='_blank'>here</a>.
+<br><br>
+Create a new file inside the folder .streamlit called secrets.toml ; Inside the file fill in the following variables:
+</p>
+
+<pre>
+  OPENAI_API_KEY = "sk-proj-"
+  OPENAI_MODEL = "gpt-4"
+
+  NEO4J_URI = "neo4j+s://URI.databases.neo4j.io"#"bolt://0.0.0.0:7687" for local
+  NEO4J_USERNAME = "neo4j"
+  NEO4J_PASSWORD = "password"
+
+  LANGCHAIN_API_KEY = ""
+  LANGCHAIN_TRACING_V2 ='true'
+  LANGCHAIN_PROJECT = "default"
+  LANGCHAIN_ENDPOINT = "https://api.smith.langchain.com"
+</pre>
+
+<p>
+<strong>Note:</strong> You can now head to the folder and run streamlit using "streamlit run bot.py"
+</p>
+
+<br>
+<h3> Step 1: Build the knowledge graph </h3>
+
+<h4>Download clinical trials data </h4>
+
+<p>
+All clinical trials data are required to be reported on at clinicaltrials gov <a href="https://clinicaltrials.gov/data-api/api" target='_blank'>website</a>.
+Download the entire xml files or get the data using the search query.
+
+Here is an example of the clinical trials data:
+</p>
+<pre>
+{'id': 'NCT00976261',
+ 'title': 'A 2-Part Trial in Subjects With Type 2 Diabetes and in Healthy Subjects to Evaluate GSK1614235, a New Glucose Lowering Drug to Treat Type 2 Diabetes',
+ 'summary': 'The purpose of Part A of this study is to test whether repeated doses of the study drug (GSK1614235) are safe and well tolerated (i.e. do not produce unacceptable side effects) and whether we can obtain some preliminary information as to whether it works in lowering blood glucose levels. We will do this by comparing the effect of the study drug with placebo (no drug present) and against a drug (sitagliptin) known to control blood glucose in the treatment of diabetes.\n\nThe purpose of Part B of this study is to determine the how the timing of dosing, relative to meals, affects the response to study drug.',
+ 'status': 'COMPLETED',
+ 'startDate': '2009-10-17',
+ 'completionDate': '2010-09-05',
+ 'acronym': 'SGA112534',
+ 'sponsor_name': 'GlaxoSmithKline',
+ 'sponsor_class': 'INDUSTRY',
+ 'locations': [{'city': 'Miami', 'country': 'United States'},
+  {'city': 'Baton Rouge', 'country': 'United States'},
+  {'city': 'Cincinnati', 'country': 'United States'},
+  {'city': 'Gières', 'country': 'France'},
+  {'city': 'Rueil-Malmaison', 'country': 'France'},
+  {'city': 'Neuss', 'country': 'Germany'},
+  {'city': 'Berlin', 'country': 'Germany'},
+  {'city': 'Hamburg', 'country': 'Germany'},
+  {'city': 'Cambridge', 'country': 'United Kingdom'}]}
+</pre>
+
+<h4> Adding data to the Neo4J</h4>
+
+<p>
+We will use the Neo4J graph to store representations of the data. Once we have the data representation we can write Cypher queries that will add data directly to the database.
+</p>
+<br>
+<pre>
+  def insert_data(graph, row):
+      graph.query("""
+      CREATE (t:ClinicalTrial {id:$id})
+      SET t.title = $title
+      SET t.summary = $summary
+      SET t.status = $status
+      SET t.start_date = $startDate
+      MERGE (sp:Sponsor {name:$sponsor_name, class:$sponsor_class})
+      WITH t, sp
+      MERGE (t) <-[:SPONSORS]- (sp)
+
+      WITH $locations AS locations, t
+      UNWIND locations AS l
+
+      WITH t, l
+      WHERE l.city IS NOT NULL
+      MERGE (city:City {name: l.city})
+      MERGE (t)-[:IN_CITY]->(city)
+
+      WITH t, l, city
+      WHERE l.country is NOT NULL
+      MERGE (country:Country {name: l.country})
+      MERGE (t)-[:IN_COUNTRY]->(country)
+
+      WITH l, city, country
+      WHERE l.city is NOT NULL AND l.country IS NOT NULL
+      MERGE (city)-[:PART_OF]->(country)
+
+      """, row)
+</pre>
+
+<p>
+We will loop through all the rows in the data to create the variables. You can design the database schema based your need.
+<br>
+<strong>Note:</strong> There are differences in using CREATE and MATCH when adding data.
+</p>
+
+<h3> Step 2: Generating vector Index</h3>
+
+<p>
+Creating vector index:
+To search across embeddings in Neo4J we need to create a vector index.
+</p>
+
+<pre>
+graph.query("""
+      CREATE VECTOR INDEX ctDescription IF NOT EXISTS
+      FOR (c:ClinicalTrial)
+      ON c.embedding
+      OPTIONS {indexConfig: {
+       `vector.dimensions`: 1536,
+       `vector.similarity_function`: 'cosine'
+      }}
+  """)
+</pre>
+
+<p>
+<strong>CREATE VECTOR INDEX</strong> serves as the default option to conduct search on the node types.
+<br>
+There are two broad ways to conduct retrieval search - (a) Semantic, and (b) Graph - Click on each of these drop downs to learn more about them.
+</p>
+<details>
+
+<summary> Conducting semantic vector search </summary>
+<p>
+We can use the embeddings of the node and find similar nodes using cosine similarity.
+</p>
+<pre>
+  ct_trial_vector = Neo4jVector.from_existing_index(
+      openai_emb,
+      graph=graph,
+      index_name="ctDescription",
+      # embedding_node_property="embedding",
+      retrieval_query="""
+          RETURN node.title AS text, score,
+          {
+              id: node.id,
+              source: 'https://clinicaltrials.gov/study/' + node.id,
+              summary: node.summary
+          } AS metadata
+      """
+  )
+
+  result = ct_trial_vector.similarity_search(
+      "Trials that evaluate Glucose lowering drug for Type 2 Diabetes",
+      k=1
+  )
+
+  result[0].metadata
+
+</pre>
+
+</details>
+
+<details>
+<summary> Generating Cypher queries using language models</summary>
+
+<p>
+One of the cool applications of the language model is the ability to ask data-driven questions using simple text.
+Under the hood, the model interprets the question and generates Cypher queries.
+These queries can then be used to access the Neo4J database to retrieve results.
+
+Langchain includes the `GraphCypherQAChain` chain that interacts with a Neo4J database. It uses language model to generate cypher queries and uses the graph to answer the question.
+> The chain includes a prompt template (cypher_prompt) to give the LLM the schema and question.
+
+Here is a simple code chunk model that allows you to attempt this task:
+</p>
+
+<pre>
+CYPHER_GENERATION_TEMPLATE = """
+You are an expert Neo4j Developer translating user questions into Cypher to answer questions about movies and provide recommendations.
+Convert the user's question based on the schema.
+
+Schema: {schema}
+Question: {question}
+"""
+</pre>
+
+<p>
+We can input this template into the `PromptTemplate` command in LangChain.
+</p>
+
+<pre>
+cypher_generation_prompt = PromptTemplate(
+    template=CYPHER_GENERATION_TEMPLATE,
+    input_variables=["schema", "question"],
+)
+
+cypher_chain = GraphCypherQAChain.from_llm(
+    llm,
+    graph=graph,
+    cypher_prompt=cypher_generation_prompt,
+    verbose=True,
+    allow_dangerous_requests=True
+)
+
+result = cypher_chain.invoke({"query": "How many Diabetes clinical trials are ongoing?"})
+
+print(result)
+</pre>
+
+<p>
+Tips on modifying the prompt query:
+</p>
+<ul>
+  <li> Provide instructions to limit response to the existing schema: <code>“”” Use only the provided relationship types and properties in the schema. Do not use any other relationship types or properties that are not provided”””</code></li>
+  <li> Build guardrails to ensure that the response doesn't hallucinate. <code>""" If no data is returned, do not attempt to answer the question """</code>
+  <li> Few shot prompting. Include examples in the prompt to help guide the model on how to search for results.
+</ul>
+
+</details>
+
+<h3> Step 3: Building agentic systems </h3>
+
+<p>
+In the previous step, we built two types of search -- one that relies on document embeddings and another one that uses graph search.
+These are tools that the Language model can utilize to help the user input query.
+We can create a system that allows the LLM to design their action space based on these choices.
+</p>
+<h4> Step 3.1: Set up tool functions</h4>
+
+<p>
+In this implementation of the TrialQuery, we will rely on three tools:
+<ul>
+<li>(a) A general chat tool with a specific prompt.</li>
+<li>(b) A semantic search tool that will help query across several clinical trials.</li>
+<li>(c) A graph search tool that will create Cypher queries to retrieve information using Neo4J</li>
+</ul>
+</p>
+
+<pre>
+  ####
+  # 1. Create a ct chat chain
+  ####
+
+  chat_prompt = ChatPromptTemplate.from_messages(
+      [
+          ("system", "You are a clinical trials expert providing information about clinical trials."),
+          ("human", "{input}"),
+      ]
+  )
+  ct_chat = chat_prompt | llm | StrOutputParser()
+
+  ct_trial_vector = Neo4jVector.from_existing_index(
+      openai_emb,
+      graph=graph,
+      index_name="ctDescription",
+      retrieval_query="""
+          RETURN node.title AS text, score,
+          {
+              id: node.id,
+              source: 'https://clinicaltrials.gov/study/' + node.id,
+              summary: node.summary
+          } AS metadata
+      """
+  )
+
+  ct_trial_retriever = ct_trial_vector.as_retriever()
+
+  # Create the prompt
+  instructions = (
+      "Use the given context to answer the question. "
+      "If you don't know the answer, say you don't know. "
+      "Context: {context}"
+  )
+
+  prompt = ChatPromptTemplate.from_messages(
+      [
+          ("system", instructions),
+          ("human", "{input}")
+      ]
+  )
+
+  # Create the chain
+  question_answer_chain = create_stuff_documents_chain(llm, prompt)
+  ct_retriever = create_retrieval_chain(
+      ct_trial_retriever,
+      question_answer_chain
+  )
+
+  # Create a function to call the chain
+  def get_ct_description(input):
+      return ct_retriever.invoke({"input": input})
+
+  ####
+  # 3. Graph Cypher Search
+  ####
+
+  cypher_generation_prompt = PromptTemplate(
+      template=CYPHER_GENERATION_TEMPLATE,
+      input_variables=["schema", "question"],
+  )
+
+  cypher_chain = GraphCypherQAChain.from_llm(
+      llm,
+      graph=graph,
+      cypher_prompt=cypher_generation_prompt,
+      verbose=True,
+      allow_dangerous_requests=True  # Be careful here
+  )
+
+</pre>
+
+<h4> Step 3.2: Creating agentic tools </h4>
+
+<p>
+We take the different tools we have created and wrap them into an agentic framework.
+We will feed these tool options along with a short description of those tools. It will alow the model to decide between the tools
+</p>
+<pre>
+# Create a set of tools
+tools = [
+    Tool.from_function(
+        name="General Chat",
+        description="For general clinical trials chat not covered by other tools",
+        func=ct_chat.invoke,
+    ),
+    Tool.from_function(
+        name = "Clinical trial Search",
+        description = "For when you need to search clinical trials based on desciption of the trial",
+        func=get_ct_description,
+    ),
+    Tool.from_function(
+        name = 'Clinical trials knowledge information',
+        description = 'Answer clinical trials related questions that require a knowledge graph to answer using Cypher',
+        func = cypher_chain
+    )
+]
+</pre>
+
+<p>
+  Finally, we will create an agent executor system that will interact with these tools. Langchain provides a wrapper to set this up.
+</p>
+<pre>
+  prompt = hub.pull("hwchase17/react")
+  agent = create_react_agent(llm, tools, prompt)
+  agent_executor = AgentExecutor(
+      agent=agent,
+      tools=tools,
+      verbose=True
+  )
+
+  agent_executor.invoke(
+    {
+        "input": "What's the summary of trial NCT04027023?",
+    }
+)
+</pre>
+
+<p>
+Here is a snippet of the response we get for that query:
+</p>
+<br>
+<img src="./images/llm/agent_summary_response.png" alt="Agent tooling response" width="500" height="500">
+
+<details>
+
+<summary>Adding memory to the chatbot[OPTIONAL]</summary>
+<p>
+We want the agent to recognize the prior conversation to provide personalized responses. We can wrap the agent executor function inside a langhcain message history command.
+Here is one implementation of it, where get_memory function is evoked at every agentic call:
+<pre>
+def get_memory(session_id):
+      return Neo4jChatMessageHistory(session_id=session_id, graph=graph)
+
+chat_agent = RunnableWithMessageHistory(
+        agent_executor,
+        get_memory,
+        input_messages_key="input",
+        history_messages_key="chat_history",
+)
+</pre>
+
+</p>
+
+
+</details>
+
+<p>
+And voila, we have successfully built <strong>TrialQuery</strong>, a LLM powered clinical trials explorer!
+</p>
+
+<h3> Future work </h3>
+
+<h3>References</h3>
+
+<ul>
+  <li><a href="https://python.langchain.com/docs/tutorials/graph/">GraphCypherQAChain</a></li>
+  <li><a href="https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/" target='_blank'>GraphRAG: Unlocking LLM discovery on narrative private data</a></li>
+  <li><a href='https://youtu.be/knDDGYHnnSI' target='_blank'>GraphRAG: The Marriage of Knowledge Graphs and RAG: Emil Eifrem</a></li>
+  <li><a href='https://youtu.be/oynd7Xv2i9Y' target='_blank'> Deploying an OpenAI Streamlit app to AWS</a></li>
+  <li> <a href='https://medium.com/neo4j/building-an-educational-chatbot-for-graphacademy-with-neo4j-f707c4ce311b' target='_blank'>Building an Educational Chatbot for GraphAcademy with Neo4j Using LLMs and Vector Search | by Adam Cowley</a>
+</ul>
+</div>
+</body>
+</html>

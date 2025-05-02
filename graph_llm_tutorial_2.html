@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Knowledge Graphs and LLMs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    summary {
+      font-size: 1.25em;
+      font-weight: bold;
+      padding: 10px;
+      cursor: pointer;
+      background-color: #e8f0fe;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    details {
+      margin-bottom: 10px;
+    }
+
+    pre, code {
+      background-color: #f4f4f4;
+      padding: 10px;
+      overflow-x: auto;
+      display: block;
+      border-left: 3px solid #3498db;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    a {
+      color: #3498db;
+    }
+
+    blockquote {
+      background: #ecf0f1;
+      border-left: 5px solid #3498db;
+      margin: 20px 0;
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Knowledge Graphs and LLMs</h1>
+
+    <details open>
+      <summary>LLM Basics</summary>
+      <h3>Why are LLMs so hot right now?</h3>
+      <ul>
+        <li>Automate data retrieval tasks</li>
+        <li>Improve customer service experiences</li>
+        <li>Expedite reading, understanding, and summarizing</li>
+        <li>Content and code generation</li>
+      </ul>
+
+      <h3>LLM Limitations</h3>
+      <ul>
+        <li>Knowledge cut off: not trained on the latest data</li>
+        <li>Lack of enterprise domain knowledge</li>
+        <li>Hallucinations</li>
+        <li>Lack of explainability and inability to verify sources</li>
+        <li>Ethical and data bias concerns</li>
+        <li>Sensitive to prompt phrasing</li>
+        <li>Vulnerable to prompt injection</li>
+      </ul>
+
+      <h3>How to Help LLMs Do Better</h3>
+      <ul>
+        <li><strong>Fine-tuning:</strong> Additional training data</li>
+        <li><strong>Few-shot learning:</strong> Provide examples in prompts</li>
+        <li><strong>Grounding:</strong> Give the model context to generate better answers</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Retrieval Augmented Generation (RAG)</summary>
+      <ul>
+        <li>Grounds LLM responses to domain-specific context</li>
+        <li>Helps avoid hallucination</li>
+        <li>Uses language model for language only, not facts</li>
+        <li>Fetches info from reliable sources using vector embeddings</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Graph RAG</summary>
+      <ul>
+        <li>Creates memory representation of private data</li>
+        <li>Improves search relevancy</li>
+        <li>Builds deeper relationships beyond co-occurrence</li>
+        <li>Supports granular filters across datasets</li>
+      </ul>
+
+      <h3>References</h3>
+      <ul>
+        <li><a href="https://python.langchain.com/docs/tutorials/graph/">GraphCypherQAChain</a></li>
+        <li>GraphRAG: Unlocking LLM discovery</li>
+        <li>From Local to Global: Graph RAG</li>
+        <li>GraphRAG Talk: Emil Eifrem</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Application Pipeline</summary>
+
+      <h3>1. Vector + Graph RAG Approach</h3>
+      <blockquote>Combines vector search with graph traversal for deep semantic context</blockquote>
+      <ul>
+        <li>Decompose nodes into embeddings</li>
+        <li>Find initial documents with vector search</li>
+        <li>Traverse graph for related entities</li>
+        <li>Optionally rank and pass to LLM</li>
+      </ul>
+
+      <h3>2. Graph-only RAG Approach</h3>
+      <blockquote>Use graph queries generated from natural language and feed results to the LLM</blockquote>
+      <ul>
+        <li>Convert question to graph query</li>
+        <li>Execute and retrieve results</li>
+        <li>Build LLM prompt from query results</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Tech Stack Resources</summary>
+      <ul>
+        <li><a href="https://github.com/docker/genai-stack">GenAI Stack GitHub</a></li>
+        <li><a href="https://neo4j.com/blog/genai/introducing-genai-stack-developers/">Neo4j GenAI Blog</a></li>
+        <li>Streamlit on AWS EC2 Deployment Guide</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Docker Essentials</summary>
+      <ul>
+        <li><strong>What is Docker?</strong> Virtualization for apps and dependencies</li>
+        <li><strong>Containers:</strong> Run anywhere setup</li>
+        <li><strong>Images:</strong> The app package</li>
+        <li><strong>Compose:</strong> Manage multi-service apps via YAML</li>
+      </ul>
+    </details>
+
+    <details>
+      <summary>Cypher Language</summary>
+      <p><a href="https://neo4j.com/docs/getting-started/cypher/">Cypher Docs</a></p>
+      <pre>Syntax: ()-[]->() where () is a node and [] is the relationship</pre>
+
+      <h4>Examples:</h4>
+      <p><strong>Movies with Tom Hanks:</strong></p>
+      <pre>
+MATCH (actor:Person {name:"Tom Hanks"})-[:ACTED_IN]->(movie:Movie)
+RETURN actor.name, movie.title LIMIT 10
+      </pre>
+
+      <p><strong>Co-actors:</strong></p>
+      <pre>
+MATCH (tom:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m)<-[:ACTED_IN]-(coActors)
+RETURN coActors.name, m.title
+      </pre>
+
+      <p><strong>Writers but not directors:</strong></p>
+      <pre>
+MATCH (tom:Person {name:"Tom Hanks"})-[:ACTED_IN]->(m)<-[:WROTE]-(p)
+WHERE NOT EXISTS ( (p)-[:DIRECTED]->(m))
+RETURN p.name, m.title
+      </pre>
+    </details>
+
+    <details>
+      <summary>StackOverflow Knowledge Graph</summary>
+      <h4>Step 1: Create Nodes</h4>
+      <pre>
+MERGE (question:Question {id:q.question_id})
+SET question.title = q.title, ...
+      </pre>
+
+      <h4>Step 2: Add Tags</h4>
+      <pre>
+FOREACH (tagName IN q.tags |
+  MERGE (tag:Tag {name:tagName})
+  MERGE (question)-[:TAGGED]->(tag)
+)
+      </pre>
+
+      <h4>Step 3: Map Answers</h4>
+      <pre>
+FOREACH (a IN q.answers |
+  MERGE (question)<-[:ANSWERS]-(answer:Answer {id:a.answer_id})
+  ...
+)
+      </pre>
+
+      <h4>Step 4: Merge Owners</h4>
+      <pre>
+WITH * WHERE NOT q.owner.user_id IS NULL
+MERGE (owner:User {id:q.owner.user_id})
+...
+      </pre>
+    </details>
+
+  </div>
+</body>
+</html>
