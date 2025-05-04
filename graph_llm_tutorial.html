@@ -375,11 +375,17 @@ Create a new file inside the folder .streamlit called secrets.toml ; Inside the 
 <br>
 <h3> Step 1: Build the knowledge graph </h3>
 
+<img src="./images/llm/kg_schema_test.png" alt="Knowledge Graph Schema" width="400" height="300">
+
+<p>
+We are going to aim to build the database schema shown above. The nodes will comprise of <strong>ClinicalTrial, City, Country, and Sponsor</strong>; and the relationships will map the connections between them, <strong>IN_CITY, IN_COUNTRY, PART_OF, SPONSORS</strong>. We will create this smaller graph for demonstration purposes and experimentation. The hosted server comprises of a much larger knowledge graph and data.
+</p>
+
 <h4>Download clinical trials data </h4>
 
 <p>
 All clinical trials data are required to be reported on at clinicaltrials gov <a href="https://clinicaltrials.gov/data-api/api" target='_blank'>website</a>.
-Download the entire xml files or get the data using the search query.
+Download trials as json using the search query. I would recommend a small sample (n=100) for experimentation purposes.
 
 Here is an example of the clinical trials data:
 </p>
